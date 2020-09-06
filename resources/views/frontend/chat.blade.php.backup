@@ -1,0 +1,343 @@
+@extends('layouts.frontend.layout')
+@section('header')
+<title>Chat | Sneklay</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+<style>
+    .owl-item.active,
+    .owl-item {
+        width: auto !important;
+    }
+
+    .owl-theme .owl-nav {
+        margin-top: 10px;
+        display: none;
+    }
+
+</style>
+@endsection
+@section('menu-item')
+<li class="nav-item">
+    <a class="nav-link" href="{{ url('account') }}">My Account</a>
+</li>
+@endsection
+@section('content')
+<div class="container-fluid" id="chat">
+    <div class="chatroom-inbox-header d-flex justify-content-between">
+        <a href="{{ url('/') }}" class="btn"> <i class="fas fa-chevron-left"></i> back </a>
+        <h1 class="font-weight-bold m-0 p-0">{{$chatRoom->name}} @{{message}}</h1>
+        <h1 class="" style="visibility: hidden;"></h1>
+    </div>
+    <hr class="m-0 p-0">
+    <div class="chatroom-inbox-area">
+        <div class="room-member text-left d-flex justify-content-left">
+
+
+
+            <div class="owl-carousel owl-theme">
+                <div class="item">
+                    <h1 class="chatroom-member-single" style="background: blue">
+                        A
+                        <i class="fa fa-circle" aria-hidden="true"></i>
+                    </h1>
+                </div>
+                <div class="item">
+                    <h1 class="chatroom-member-single" style="background: red">
+                        B
+                        <i class="fa fa-circle" aria-hidden="true"></i>
+                    </h1>
+                </div>
+                <div class="item">
+                    <h1 class="chatroom-member-single" style="background: green">
+                        C
+                        <i class="fa fa-circle" aria-hidden="true"></i>
+                    </h1>
+                </div>
+                <div class="item">
+                    <h1 class="chatroom-member-single" style="background: blue">
+                        A
+                        <i class="fa fa-circle" aria-hidden="true"></i>
+                    </h1>
+                </div>
+                <div class="item">
+                    <h1 class="chatroom-member-single" style="background: red">
+                        B
+                        <i class="fa fa-circle" aria-hidden="true"></i>
+                    </h1>
+                </div>
+                <div class="item">
+                    <h1 class="chatroom-member-single" style="background: green">
+                        C
+                        <i class="fa fa-circle" aria-hidden="true"></i>
+                    </h1>
+                </div>
+                <div class="item">
+                    <h1 class="chatroom-member-single" style="background: blue">
+                        A
+                        <i class="fa fa-circle" aria-hidden="true"></i>
+                    </h1>
+                </div>
+                <div class="item">
+                    <h1 class="chatroom-member-single" style="background: red">
+                        B
+                        <i class="fa fa-circle" aria-hidden="true"></i>
+                    </h1>
+                </div>
+                <div class="item">
+                    <h1 class="chatroom-member-single" style="background: green">
+                        C
+                        <i class="fa fa-circle" aria-hidden="true"></i>
+                    </h1>
+                </div>
+                <div class="item">
+                    <h1 class="chatroom-member-single" style="background: blue">
+                        A
+                        <i class="fa fa-circle" aria-hidden="true"></i>
+                    </h1>
+                </div>
+                <div class="item">
+                    <h1 class="chatroom-member-single" style="background: red">
+                        B
+                        <i class="fa fa-circle" aria-hidden="true"></i>
+                    </h1>
+                </div>
+                <div class="item">
+                    <h1 class="chatroom-member-single" style="background: green">
+                        C
+                        <i class="fa fa-circle" aria-hidden="true"></i>
+                    </h1>
+                </div>
+
+            </div>
+        </div>
+        <hr class="m-0 p-0">
+        <div class="message-rad">
+            <div class="message-read-single">
+                <div class="message-info d-flex justify-content-between">
+                    <h6 class="m-0 p-0">Username</h6>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" style="background: #fff !important;padding:0;">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <button class="dropdown-item" type="button">Report Message</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="message-text message-text-left">
+                    <p class="m-0 p-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis provident unde
+                        dicta. Vel rem odio minima nemo adipisci, officiis cupiditate!</p>
+
+                </div>
+                <div class="chat-like-option d-flex justify-content-lg-start">
+                    <a href="#" class="chat-like-active">
+                        <i class="fas fa-thumbs-up"></i> 10
+                    </a>
+                    <a href="#">
+                        <i class="fas fa-thumbs-down"></i> 20
+                    </a>
+                </div>
+            </div>
+            <div class="message-read-single-sender">
+                <div class="message-info d-flex justify-content-between">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" style="background: #fff !important;padding:0;">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-left">
+                            <button class="dropdown-item" type="button">Report Message</button>
+                        </div>
+                    </div>
+                    <h6 class="m-0 p-0">Username</h6>
+                </div>
+                <div class="message-text message-text-right">
+                    <p class="m-0 p-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis provident unde
+                        dicta. Vel rem odio minima nemo adipisci, officiis cupiditate!</p>
+                </div>
+                <div class="chat-like-option d-flex justify-content-lg-start">
+                    <a href="#" class="chat-like-active">
+                        <i class="fas fa-thumbs-up"></i> 10
+                    </a>
+                    <a href="#">
+                        <i class="fas fa-thumbs-down"></i> 20
+                    </a>
+                </div>
+            </div>
+            <div class="message-read-single-sender">
+                <div class="message-info d-flex justify-content-between">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" style="background: #fff !important;padding:0;">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-left">
+                            <button class="dropdown-item" type="button">Report Message</button>
+                        </div>
+                    </div>
+                    <h6 class="m-0 p-0">Username</h6>
+                </div>
+                <div class="message-text message-text-right">
+                    <p class="m-0 p-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis provident unde
+                        dicta. Vel rem odio minima nemo adipisci, officiis cupiditate!</p>
+                </div>
+                <div class="message-image">
+                    <div class="w-100">
+                        <img src="{{ asset('assets/frontend/images/chat/thumb-v-v-1.jpg') }}" class="w-100" alt="img">
+                    </div>
+                </div>
+                <div class="chat-like-option d-flex justify-content-lg-start">
+                    <a href="#" class="chat-like-active">
+                        <i class="fas fa-thumbs-up"></i> 10
+                    </a>
+                    <a href="#">
+                        <i class="fas fa-thumbs-down"></i> 20
+                    </a>
+                </div>
+            </div>
+
+            <div class="message-read-single">
+                <div class="message-info d-flex justify-content-between">
+                    <h6 class="m-0 p-0">Username</h6>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" style="background: #fff !important;padding:0;">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <button class="dropdown-item" type="button">Report Message</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="message-text message-text-left">
+                    <p class="m-0 p-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis provident
+                        unde dicta. Vel rem odio minima nemo adipisci, officiis cupiditate!</p>
+                </div>
+                <div class="message-image" style="    height: 82px;width: 70px;margin-left: 32px;">
+                    <div class="w-100">
+                        <img src="{{ asset('assets/frontend/images/chat/thumb-v-v-1.jpg') }}" class="w-100" alt="img">
+                    </div>
+                    <div class="w-100">
+                        <img src="{{ asset('assets/frontend/images/chat/thumb-v-v-2.jpg') }}" class="w-100" alt="img">
+                    </div>
+                    <div class="w-100">
+                        <img src="{{ asset('assets/frontend/images/chat/thumb-v-y-1.jpg') }}" class="w-100" alt="img">
+                    </div>
+                </div>
+                <div class="chat-like-option d-flex justify-content-lg-start">
+                    <a href="#" class="chat-like-active">
+                        <i class="fas fa-thumbs-up"></i> 10
+                    </a>
+                    <a href="#">
+                        <i class="fas fa-thumbs-down"></i> 20
+                    </a>
+                </div>
+            </div>
+            <div class="message-read-single">
+                <div class="message-info d-flex justify-content-between">
+                    <h6 class="m-0 p-0">Username</h6>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" style="background: #fff !important;padding:0;">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <button class="dropdown-item" type="button">Report Message</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="message-text message-text-left">
+                    <p class="m-0 p-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis provident unde
+                        dicta. Vel rem odio minima nemo adipisci, officiis cupiditate!</p>
+                </div>
+                <div class="message-image" style="    height: 82px;width: 70px;margin-left: 32px;">
+                    <div class="w-100">
+                        <img src="{{ asset('assets/frontend/images/chat/thumb-v-v-1.jpg') }}" class="w-100" alt="img">
+                    </div>
+                    <div class="w-100">
+                        <img src="{{ asset('assets/frontend/images/chat/thumb-v-v-2.jpg') }}" class="w-100" alt="img">
+                    </div>
+                    <div class="w-100">
+                        <img src="{{ asset('assets/frontend/images/chat/thumb-v-y-1.jpg') }}" class="w-100" alt="img">
+                    </div>
+                </div>
+            </div>
+            <div class="chat-like-option d-flex justify-content-lg-start">
+                <a href="#" class="chat-like-active">
+                    <i class="fas fa-thumbs-up"></i> 10
+                </a>
+                <a href="#">
+                    <i class="fas fa-thumbs-down"></i> 20
+                </a>
+            </div>
+        </div>
+        <div class="message-send-area">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-start">
+                    <div id="imoje">
+                        <i class="far fa-smile"></i>
+                    </div>
+                    <div id="link-libery">
+                        <i class="fas fa-paperclip"></i>
+                    </div>
+                    <input type="text" class="form-control rounded-0" placeholder="Text">
+                    <button type="button" class="btn btn-primary message-btn pl-4 pr-4 ml-1">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+
+@section('script')
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+<script>
+    
+    const app = new Vue({
+        el: '#chat',
+        data:{
+            messages: [];
+        },
+
+        created(){
+            window.Echo.channel('chat-channel')
+                .listen('ChatEvent', (e) => {
+                    console.log(e);
+                });
+        },
+    });
+
+
+
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+<script>
+    $('.owl-carousel').owlCarousel({
+            loop:true,
+            margin:10,
+            autoplay: false,
+            dots: false,
+            responsiveClass:true,
+            responsive:{
+                0:{
+                    items:1,
+                    nav:true
+                },
+                600:{
+                    items:3,
+                    nav:false
+                },
+                1000:{
+                    items:5,
+                    nav:true,
+                    loop:false
+                }
+            }
+        });
+</script>
+@endsection

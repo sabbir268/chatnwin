@@ -1,0 +1,110 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\ChatRoom;
+use App\Http\Controllers\Controller;
+use App\JoinChatRoom;
+use Illuminate\Http\Request;
+use Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
+class ChatRoomController extends Controller
+{
+    public function index()
+    {
+        $chatrooms = ChatRoom::orderBy('id', 'desc')->paginate(10);
+        return view('admin.chatroom.index', compact('chatrooms'));
+    }
+    public function create()
+    {
+        return view('admin.chatroom.create');
+    }
+
+    public function store(Request $request)
+    {
+        $catroom = new ChatRoom();
+
+        $data = $request->validate([
+            'name' => 'required|unique:chat_rooms|string',
+            'photo' => 'required|mimes:png,jpg,jpeg',
+        ]);
+        $data['user_id'] = Auth::user()->id;
+        $data['slug'] = Str::slug($data['name'], '-') . '-' .  strtolower(Str::random(5));;
+        if ($request->hasFile('photo')) {
+            $data['photo'] = $request->photo->store('uploads/chatroom/', 'public');
+        }
+
+        if (ChatRoom::create($data)) {
+            return redirect()->back()->with('success', 'Chatroom added successfully !');
+        } else {
+            return redirect()->back()->with('error', 'Failed to add Chatroom !');
+        }
+    }
+
+    public function edit($id)
+    {
+         $chatroom = ChatRoom::findOrFail($id);
+         return view('admin.chatroom.edit', compact('chatroom'));
+
+    }
+
+    public function update(Request $request , $id)
+    {
+        $chatroom = ChatRoom::findorFail($id);
+
+        $data = $request->validate([
+            'name' => 'required|string',
+            'photo' => 'mimes:png,jpg,jpeg',
+        ]);
+
+        $data['slug'] = Str::slug($data['name'], '-') . '-' .  strtolower(Str::random(5));;
+        if ($request->hasFile('photo')) {
+            $data['photo'] = $request->photo->store('uploads/chatroom/', 'public');
+        }
+
+        if ($chatroom->update($data)) {
+            return redirect()->back()->with('success', 'Chatroom updated successfully !');
+        } else {
+            return redirect()->back()->with('error', 'Failed to adupdate Chatroom !');
+        }
+    }
+
+    public function destroy(Request $request)
+    {
+        $chatroom = ChatRoom::findOrFail($request->id);
+        if ($chatroom->delete()) {
+            // return Storage::delete('app/public/'.$chatroom->photo);
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+
+    public function enterRoom($slug)
+    {
+        $chatRoom = ChatRoom::whereSlug($slug)->first();
+
+        if (!checkJoined($chatRoom->id, auth()->user()->id)) {
+            $join = JoinChatRoom::create([
+                'chat_room_id' => $chatRoom->id,
+                'user_id' => auth()->user()->id,
+                'is_online' => 1,
+            ]);
+
+            if ($join) {
+                return view('frontend.chat', compact('chatRoom'));
+            } else {
+                return 'Something went wrong';
+            }
+        } else {
+            return view('frontend.chat', compact('chatRoom'));
+        }
+    }
+
+    public function winners()
+    {
+        return view('admin.winners');
+    }
+}

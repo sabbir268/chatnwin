@@ -1,0 +1,367 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/** common css by sabbir **/
+
+.form-control:focus {
+    box-shadow: none !important;
+    border-color: #C34DFB;
+}
+
+.bg-sn {
+    background-color: #7B27A3;
+}
+
+button {
+    border: none !important;
+}
+
+button:focus {
+    box-shadow: none !important;
+}
+
+.border-sn {
+    border: 1px solid #7B27A3 !important;
+}
+
+.btn:focus {
+    box-shadow: none !important;
+}
+
+.bg-snw {
+    background-color: #7B27A3 !important;
+    color: #fff !important;
+}
+
+/********* common css **********/
+
+.row {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.btn:focus, .btn:active {
+    outline: none !important;
+    box-shadow: none;
+}
+
+.navbar .navbar-expand-lg {
+    padding: 10px 0;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #000000 !important;
+    font-weight: 500;
+}
+
+.invalid-feedback {
+    display: block;
+    width: 100%;
+    margin-top: .25rem;
+    font-size: 80%;
+    color: #dc3545;
+}
+
+h1 {
+    font-size: 30px !important;
+}
+
+.chatroom-single {
+    margin-bottom: 35px;
+}
+
+.chatroom-single h3 {
+    font-weight: 600;
+    font-size: 23px;
+    padding: 10px 0 0 0;
+}
+
+.chatroom-single a {
+    text-decoration: none;
+    color: #000000;
+}
+
+.message-rad {
+    max-height: 60vh;
+    overflow: hidden;
+    overflow-y: scroll;
+    padding-bottom: 120px;
+}
+
+.message-rad::-webkit-scrollbar {
+    width: 8px;
+}
+
+.message-btn {
+    background: #7B27A3 !important;
+}
+
+/* Track */
+
+.message-rad::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+/* Handle */
+
+.message-rad::-webkit-scrollbar-thumb {
+    background: #C34DFB;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+
+.message-rad::-webkit-scrollbar-thumb:hover {
+    background: #d18af3;
+}
+
+.message-text {
+    display: inline-block;
+    margin: 0 10px;
+    padding: 21px;
+    border-radius: 12px;
+}
+
+.chat-like-option {
+    margin: 0px 0px 0 22px;
+}
+
+.chat-like-option a {
+    text-decoration: none;
+    color: #000;
+    margin-right: 14px;
+    font-size: 17px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.chat-like-option a:last-child {
+    margin-top: 4px;
+}
+
+.chat-like-active {
+    color: #7B27A3 !important;
+}
+
+.message-text-right {
+    background: #C34DFB;
+    color: #fff;
+    text-align: left;
+}
+
+.message-text-left {
+    background: #DDDDDD;
+}
+
+.message-image {
+    margin: 0 13px;
+    /* padding: 21px; */
+    position: relative;
+    height: 82px;
+    width: 70px;
+    margin-left: 32px;
+    margin-top: 5px;
+}
+
+.message-read-single-sender>.message-image {
+    float: right;
+}
+
+/* .message-image img:nth-child(1) {
+   z-index: 999;
+} */
+.custom-border-radious {
+    border-radius: .5rem;
+}
+
+.message-image>div:nth-child(1) {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.message-image>div:nth-child(2) {
+    position: absolute;
+    top: 0;
+    left: -10px;
+}
+
+.message-image>div:nth-child(3) {
+    position: absolute;
+    top: 0;
+    left: -20px;
+}
+
+.message-image>div>img {
+    height: 70px;
+    border-radius: 9px;
+}
+
+/* chatroom inbox area css  */
+
+h1.chatroom-member-single {
+    /* background: red; */
+    margin: 10px;
+    /* padding: 16px; */
+    height: 60px;
+    width: 60px;
+    text-align: center;
+    line-height: 60px;
+    color: #ffff;
+    position: relative;
+}
+
+h1.chatroom-member-single i {
+    position: absolute;
+    right: -4px;
+    top: -5px;
+    font-size: 11px;
+    color: red;
+    height: 13px;
+    width: 13px;
+    border-radius: 50%;
+    line-height: 13px;
+    text-align: center;
+    background: #fff;
+    padding: 0px;
+}
+
+.chatroom-inbox-header a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #000000;
+}
+
+#imoje {
+    font-size: 25px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+#link-libery {
+    font-size: 25px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.message-send-area {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 14px 0;
+    border-top: 1px solid #ccc;
+    padding-right: 27px;
+    background: #ffff;
+}
+
+.message-read-single {
+    padding: 0px 10px;
+    width: 60%;
+    text-align: left;
+    overflow: hidden;
+}
+
+.message-read-single-sender {
+    padding: 0px 10px;
+    width: 60%;
+    text-align: right;
+    float: right;
+}
+
+/* about us css  */
+
+.about-us-header {
+    margin-top: 130px;
+    margin-bottom: 100px;
+}
+
+.about-us-header p {
+    font-weight: bold;
+}
+
+.about-us-single img {
+    width: 60px;
+}
+
+.about-us-single p {
+    padding: 28px 50px;
+    font-weight: bold;
+}
+
+/* registration area  */
+
+.registration-header h1 {
+    font-size: 100px !important;
+}
+
+.registration-header h6 {
+    font-size: 21px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.registration-form-2 p {
+    font-size: 13px;
+}
+
+/* result image  */
+
+.result-area {
+    margin-top: 170px;
+}
+
+.result-image img {
+    width: 100%;
+}
+
+.result-form {
+    padding: 0px 40px;
+}
+
+.size {
+    border: 1px solid #e5e4e4;
+    text-align: center;
+    height: 50px;
+    width: 61px;
+    margin: 15px 0;
+    line-height: 50px;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.size:hover {
+    border: 1px solid #7B27A3;
+    color: #7B27A3;
+}
+
+/* terms conditon area  */
+
+.terms-condition-area {
+    background: #ffffff;
+    height: 75vh;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+/* login page css  */
+
+.login-area-card {
+    margin-top: 10vh;
+}
+
+/* responsive css  */
+
+@media only screen and (max-width: 600px) {
+    .message-read-single {
+        width: 80%;
+    }
+    .message-read-single-sender {
+        width: 80%;
+    }
+    .message-rad {
+        padding-bottom: 50px;
+    }
+}
