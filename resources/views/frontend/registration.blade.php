@@ -199,8 +199,8 @@
                         </div>
                         <div class="form-group">
                             <input type="submit"
-                                class="border-sn btn btn-primary border-sn bg-sn rounded-0 btn-block pt-3 pb-3"
-                                value="Enter Chat Room" style="background-color: #7b27a3;">
+                                class="border-sn btn btn-primary border-sn bg-snw rounded-0 btn-block pt-3 pb-3"
+                                value="Enter Chat Room">
                         </div>
                     </div>
                 </div>

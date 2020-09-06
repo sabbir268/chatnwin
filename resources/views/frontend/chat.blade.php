@@ -48,10 +48,10 @@
 
             <div v-for="(message, i) in messages" :key="i">
                 <div :class="`${message.user_id == userId ? 'message-read-single-sender' : 'message-read-single'}`">
-                    <div class="message-info d-flex justify-content-between">
+                    <div class="message-info d-flex justify-content-start">
                         <h6 class="m-0 p-0">@{{message.username}}</h6>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true"
+                            <button type="button" class="btn btn-default active "  aria-haspopup="true"
                                 aria-expanded="false" style="background: #fff !important;padding:0;">
                                 <i class="fas fa-ellipsis-h"></i>
                             </button>
@@ -59,6 +59,10 @@
                                 <button class="dropdown-item" type="button">Report Message</button>
                             </div>
                         </div>
+                        {{-- <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
+                        sagittis lacus vel augue laoreet rutrum faucibus.">
+                        <i class="fas fa-ellipsis-h"></i>
+                        </button> --}}
                     </div>
                     <div class="message-text message-text-left">
                         <p class="m-0 p-0">@{{message.message}}</p>

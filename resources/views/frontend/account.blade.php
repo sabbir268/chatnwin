@@ -47,6 +47,11 @@
                             <div class="form-group">
                                 <label>First Name</label>
                                 <input type="text" name="first_name" class="form-control custom-border-radious" value="{{ $user->first_name }}">
+                                @error('first_name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-8 col-lg-8"></div>
@@ -54,6 +59,11 @@
                             <div class="form-group">
                                 <label>Last Name</label>
                                 <input type="text" name="last_name" class="form-control custom-border-radious" value="{{ $user->last_name }}">
+                                @error('last_name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -101,12 +111,22 @@
                                         <label>Address</label>
                                         <input type="text" name="address" class="form-control custom-border-radious" 
                                             value="{{ $user->address }}">
+                                            @error('address')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label>City</label>
                                         <input type="text" name="city" class="form-control custom-border-radious" value="{{ $user->city }}">
+                                        @error('city')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -116,6 +136,11 @@
                                         <label>State/Providence</label>
                                         <input type="text" name="state" class="form-control custom-border-radious" 
                                             value="{{ $user->state }}">
+                                            @error('state')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -124,6 +149,11 @@
                                             <div class="form-group">
                                                 <label>Zip Code</label>
                                                 <input type="text" name="zip_code" class="form-control custom-border-radious" value="{{ $user->zip_code }}">
+                                                @error('zip_code')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-7">
@@ -353,6 +383,11 @@
                                                     <option value="Zambia">Zambia</option>
                                                     <option value="Zimbabwe">Zimbabwe</option>
                                                 </select>
+                                                @error('country')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
                                             </div>
                                         </div> 
                                     </div>
@@ -365,7 +400,7 @@
                 </div>
                 </div>
                 <div class="form-group text-right">
-                    <input type="submit" class="btn btn-primary bg-sn rounded-0 pl-5 pr-5 pt-3 pb-3 font-weight-bold"
+                    <input type="submit" class="btn btn-primary border-sn bg-snw  rounded-0 pl-5 pr-5 pt-3 pb-3 font-weight-bold"
                         value="Save">
                 </div>
             </form>
