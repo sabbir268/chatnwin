@@ -23,6 +23,7 @@ class ChatResource extends JsonResource
             'total_likes' => $this->total_likes,
             'total_deslikes' => $this->total_desilkes,
             'is_sender' => $this->user->id == auth()->user()->id ? true : false,
+            'is_reacted' => $this->is_reacted,
         ];
     }
 }

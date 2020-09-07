@@ -3,14 +3,12 @@ body {
     padding: 0;
 }
 
-
 /** common css by sabbir **/
 
 .form-control:focus {
     box-shadow: none !important;
     border-color: #C34DFB;
 }
-
 
 /* .bg-sn {
     background-color: #7B27A3;
@@ -37,7 +35,6 @@ button:focus {
     color: #fff !important;
 }
 
-
 /********* common css **********/
 
 .row {
@@ -45,8 +42,7 @@ button:focus {
     padding: 0 !important;
 }
 
-.btn:focus,
-.btn:active {
+.btn:focus, .btn:active {
     outline: none !important;
     box-shadow: none;
 }
@@ -93,10 +89,10 @@ h1 {
 }
 
 .message-rad {
-    max-height: 60vh;
+    max-height: 52vh;
     overflow: hidden;
     overflow-y: scroll;
-    padding-bottom: 120px;
+    margin-bottom: 71px;
 }
 
 .message-rad::-webkit-scrollbar {
@@ -107,7 +103,6 @@ h1 {
     background: #7B27A3 !important;
 }
 
-
 /* Track */
 
 .message-rad::-webkit-scrollbar-track {
@@ -115,14 +110,12 @@ h1 {
     border-radius: 10px;
 }
 
-
 /* Handle */
 
 .message-rad::-webkit-scrollbar-thumb {
     background: #C34DFB;
     border-radius: 10px;
 }
-
 
 /* Handle on hover */
 
@@ -182,7 +175,6 @@ h1 {
     color: #7B27A3 !important;
 }
 
-
 /* .message-text-right {
     background: #C34DFB;
     color: #fff;
@@ -201,7 +193,6 @@ h1 {
     color: #fff;
 }
 
-
 /* .message-text-left {
     background: #DDDDDD;
 } */
@@ -219,7 +210,6 @@ h1 {
 .message-read-single-sender>.message-image {
     float: right;
 }
-
 
 /* .message-image img:nth-child(1) {
    z-index: 999;
@@ -251,7 +241,6 @@ h1 {
     height: 70px;
     border-radius: 9px;
 }
-
 
 /* chatroom inbox area css  */
 
@@ -325,7 +314,6 @@ h1.chatroom-member-single i {
     float: right;
 }
 
-
 /* about us css  */
 
 .about-us-header {
@@ -346,7 +334,6 @@ h1.chatroom-member-single i {
     font-weight: bold;
 }
 
-
 /* registration area  */
 
 .registration-header h1 {
@@ -362,7 +349,6 @@ h1.chatroom-member-single i {
 .registration-form-2 p {
     font-size: 13px;
 }
-
 
 /* result image  */
 
@@ -394,7 +380,6 @@ h1.chatroom-member-single i {
     color: #7B27A3;
 }
 
-
 /* terms conditon area  */
 
 .terms-condition-area {
@@ -404,13 +389,11 @@ h1.chatroom-member-single i {
     margin-bottom: 30px;
 }
 
-
 /* login page css  */
 
 .login-area-card {
     margin-top: 10vh;
 }
-
 
 /* responsive css  */
 
