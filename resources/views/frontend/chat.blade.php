@@ -64,11 +64,11 @@
                         <p class="m-0 p-0">@{{message.message}}</p>
                     </div>
                     <div class="chat-like-option d-flex justify-content-lg-start">
-                        <span class="chat-like-active" @click="message.total_likes++">
+                        <span class="chat-like-active" @click="chatLike(message.id)">
                             <i class="fas fa-thumbs-up"></i> @{{message.total_likes}}
                         </span>
 
-                        <span class="" @click="message.total_deslikes++">
+                        <span class="" @click="chatDislike(message.id)">
                             <i class="fas fa-thumbs-down"></i> @{{message.total_deslikes}}
                         </span>
 
@@ -163,6 +163,24 @@
                 axios.get(`/chat/${this.chatRoomId}`)
                     .then(res => {
                         this.messages = res.data.data
+                    }).catch(err => {
+                        console.log(err)
+                    })
+            },
+
+            chatLike(chat_id){
+                axios.get(`/chat/like/${chat_id}`)
+                    .then(res => {
+                        console.log(res)
+                    }).catch(err => {
+                        console.log(err)
+                    })
+            },
+
+            chatDislike(chat_id){
+                axios.get(`/chat/dislike/${chat_id}`)
+                    .then(res => {
+                        console.log(res)
                     }).catch(err => {
                         console.log(err)
                     })

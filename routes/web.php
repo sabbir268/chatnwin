@@ -53,10 +53,11 @@ Route::get('chatroom/{slug}', 'Admin\ChatRoomController@enterRoom')->name('chatr
 
 Route::group(['middleware' => 'auth'], function () {
     /**chat room and chat */
-
-
-
     Route::post('chat', 'ChatController@store');
+    Route::get('chat/like/{chat_id}', 'ChatLikeController@like');
+    Route::get('chat/dislike/{chat_id}', 'ChatLikeController@dislike');
+
+
     Route::get('chat/{chat_room_id}', 'ChatController@getAllByChatroom');
 
     Route::get('all-members/{chat_room_id}', 'JoinChatRoomController@getAllMembers');
@@ -80,6 +81,6 @@ Route::get('clear/cache', function () {
 
 Route::get('test-stripe', function () {
     $user = auth()->user();
-  //  dd($user->hasPaymentMethod());
+    //  dd($user->hasPaymentMethod());
     return dd($user->charge(100, $user->defaultPaymentMethod()->id)->status);
 });

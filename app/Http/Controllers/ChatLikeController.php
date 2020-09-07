@@ -7,79 +7,49 @@ use Illuminate\Http\Request;
 
 class ChatLikeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function like($chat_id)
     {
-        //
+        $chatLikeCheck = ChatLike::where('chat_id', $chat_id)->where('user_id', auth()->user()->id);
+        if ($chatLikeCheck->count() > 0) {
+            $chatLikeCheck = $chatLikeCheck->get();
+            if ($chatLikeCheck->deslike == 1) {
+                $chatLikeCheck->deslike = 0;
+                $chatLikeCheck->like = 1;
+                $chatLikeCheck->save();
+
+                return "success";
+            }
+        } else {
+            $chatLike = ChatLike::create([
+                'chat_id' => $chat_id,
+                'user_id' => auth()->user()->id,
+                'like' => 1,
+            ]);
+
+            return "success";
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function dislike($chat_id)
     {
-        //
-    }
+        $chatLikeCheck = ChatLike::where('chat_id', $chat_id)->where('user_id', auth()->user()->id);
+        if ($chatLikeCheck->count() > 0) {
+            $chatLikeCheck = $chatLikeCheck->get();
+            if ($chatLikeCheck->like == 1) {
+                $chatLikeCheck->like = 0;
+                $chatLikeCheck->deslike = 1;
+                $chatLikeCheck->save();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+                return "success";
+            }
+        } else {
+            $chatLike = ChatLike::create([
+                'chat_id' => $chat_id,
+                'user_id' => auth()->user()->id,
+                'deslike' => 1,
+            ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\ChatLike  $chatLike
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ChatLike $chatLike)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\ChatLike  $chatLike
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ChatLike $chatLike)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ChatLike  $chatLike
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, ChatLike $chatLike)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\ChatLike  $chatLike
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ChatLike $chatLike)
-    {
-        //
+            return "success";
+        }
     }
 }
