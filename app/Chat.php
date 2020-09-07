@@ -33,6 +33,12 @@ class Chat extends Model
         return $this->chatLike->where('deslike', 1)->count();
     }
 
+    public function getIsReactedAttribute()
+    {
+        $reacted = $this->chatLike()->where('user_id', auth()->user()->id)->first();
+        return $reacted ? $reacted->like == 1 ? 'liked' : 'dislike' : '';
+    }
+
     public function chatReport()
     {
         return $this->hasMany('App\ChatReport');

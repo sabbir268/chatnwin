@@ -11,7 +11,7 @@ class ChatLikeController extends Controller
     {
         $chatLikeCheck = ChatLike::where('chat_id', $chat_id)->where('user_id', auth()->user()->id);
         if ($chatLikeCheck->count() > 0) {
-            $chatLikeCheck = $chatLikeCheck->get();
+            $chatLikeCheck = $chatLikeCheck->first();
             if ($chatLikeCheck->deslike == 1) {
                 $chatLikeCheck->deslike = 0;
                 $chatLikeCheck->like = 1;
@@ -34,7 +34,7 @@ class ChatLikeController extends Controller
     {
         $chatLikeCheck = ChatLike::where('chat_id', $chat_id)->where('user_id', auth()->user()->id);
         if ($chatLikeCheck->count() > 0) {
-            $chatLikeCheck = $chatLikeCheck->get();
+            $chatLikeCheck = $chatLikeCheck->first();
             if ($chatLikeCheck->like == 1) {
                 $chatLikeCheck->like = 0;
                 $chatLikeCheck->deslike = 1;

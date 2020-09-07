@@ -1,20 +1,22 @@
 @extends('layouts.frontend.layout')
 @section('header')
 <title>Chat | Sneklay</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-<link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+{{-- assets\frontend\emoji\css --}}
+
 <style>
-    .owl-item.active,
-    .owl-item {
-        width: auto !important;
+    .emoji-area {
+        position: absolute;
+        z-index: 99;
+        top: -406px;
+        left: 0;
     }
 
-    .owl-theme .owl-nav {
-        margin-top: 10px;
+    .em-show {
         display: none;
     }
+
 </style>
+
 @endsection
 @section('menu-item')
 <li class="nav-item">
@@ -64,11 +66,13 @@
                         <p class="m-0 p-0">@{{message.message}}</p>
                     </div>
                     <div class="chat-like-option d-flex justify-content-lg-start">
-                        <span class="chat-like-active" @click="chatLike(message.id)">
+                        <span :class="`${message.is_reacted == 'like' ? 'chat-like-active' : ''}`"
+                            @click="chatLike(message)">
                             <i class="fas fa-thumbs-up"></i> @{{message.total_likes}}
                         </span>
 
-                        <span class="" @click="chatDislike(message.id)">
+                        <span :class="`${message.is_reacted == 'dislike' ? 'chat-like-active' : ''}`"
+                            @click="chatDislike(message)">
                             <i class="fas fa-thumbs-down"></i> @{{message.total_deslikes}}
                         </span>
 
@@ -87,7 +91,11 @@
                     <div id="link-libery">
                         <i class="fas fa-paperclip"></i>
                     </div>
-                    <input type="text" v-model="chatText" class="form-control rounded-0" placeholder="Text" autofocus>
+                    <div class="emoji-area em-show">
+                        <emoji-picker></emoji-picker>
+                    </div>
+                    <input type="text" id="sn-msg-box" v-model="chatText" class="form-control rounded-0"
+                        placeholder="Text" autofocus>
                     <button type="button" @click="sendMessage()"
                         class="btn btn-primary message-btn  ml-1">Send</button>
                 </div>
@@ -168,22 +176,32 @@
                     })
             },
 
-            chatLike(chat_id){
-                axios.get(`/chat/like/${chat_id}`)
+            chatLike(chat){
+                axios.get(`/chat/like/${chat.id}`)
                     .then(res => {
                         console.log(res)
                     }).catch(err => {
                         console.log(err)
-                    })
+                    });
+                    if(chat.is_reacted != ""){
+                        chat.total_deslikes--
+                    }
+                    chat.total_likes++
+                    chat.is_reacted = 'like'
             },
 
-            chatDislike(chat_id){
-                axios.get(`/chat/dislike/${chat_id}`)
+            chatDislike(chat){
+                axios.get(`/chat/dislike/${chat.id}`)
                     .then(res => {
                         console.log(res)
                     }).catch(err => {
                         console.log(err)
-                    })
+                    });
+                    if(chat.is_reacted != ""){
+                        chat.total_likes--
+                    }
+                    chat.total_deslikes++
+                    chat.is_reacted = 'dislike'
             },
 
             getAllMember(){
@@ -210,8 +228,10 @@
                 },
 
             scrollToEnd() {
-                var container = this.$el.querySelector(".message-rad");
-                container.scrollTop = container.scrollHeight+20;
+                // var container = this.$el.querySelector(".message-rad");
+                // container.scrollTop = container.scrollHeight+100;
+                // $('.message-rad').scrollTop($('.message-rad')[0].scrollHeight+1000);
+                $(".message-rad").stop().animate({ scrollTop: $(".message-rad")[0].scrollHeight}, 1000);
             },
 
         },
@@ -228,6 +248,24 @@
 
     $(document).ready(function() {
         $(".dropdown-toggle").dropdown();
+        // $(".message-rad").stop().animate({ scrollTop: $(".message-rad")[0].scrollHeight}, 100000);
+        $('#imoje').click(function(){
+            $('.emoji-area').toggleClass("em-show");
+
+            // $(document).mouseup(function(e)
+            // {
+            // var container = $(".emoji-area");
+            // if (!container.is(e.target) && container.has(e.target).length === 0)
+            // {
+            // container.addClass();
+            // }
+            // });
+        })
     });
+    document.querySelector('emoji-picker').addEventListener('emoji-click', event => app.chatText += event.detail.unicode);
+
 </script>
+
+
+
 @endsection
