@@ -194,11 +194,14 @@ h1 {
     padding: 9px 12px !important;
     border-radius: 12px;
     display: inline-block;
+    min-width: 150px;
+    min-height: 72px;
 }
 
 .message-read-single-sender>.message-text p {
     background: #7b27a3;
     color: #fff;
+    text-align: left;
 }
 
 
@@ -416,12 +419,40 @@ h1.chatroom-member-single i {
 
 @media only screen and (max-width: 600px) {
     .message-read-single {
-        width: 80%;
+        width: 90%;
+        padding: 0;
     }
     .message-read-single-sender {
         width: 80%;
     }
     .message-rad {
         padding-bottom: 50px;
+    }
+    .message-text-left p {
+        padding: 9px 12px 20px !important;
+        width: 85%;
+    }
+    .chatroom-inbox-header > h1 {
+        font-size: 16px !important;
+    }
+    .message-read-single > .message-info {
+        justify-content: space-between !important;
+        width: 91%;
+    }
+    #link-libery {
+        font-size: 18px;
+        margin-right: 12px;
+        margin-top: 5px;
+    }
+    #imoje {
+        font-size: 18px;
+        margin-right: 12px;
+        margin-top: 5px;
+    }
+    .message-btn {
+        padding: 0 9px 0 9px !important;
+    }
+    .message-send-area {
+        padding-right: 27px;
     }
 }

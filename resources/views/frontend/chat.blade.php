@@ -48,7 +48,7 @@
 
             <div v-for="(message, i) in messages" :key="i">
                 <div :class="`${message.user_id == userId ? 'message-read-single-sender' : 'message-read-single'}`">
-                    <div class="message-info d-flex justify-content-start">
+                    <div class="message-info d-flex justify-content-between">
                         <h6 class="m-0 p-0">@{{message.username}}</h6>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default active " aria-haspopup="true"
@@ -89,7 +89,7 @@
                     </div>
                     <input type="text" v-model="chatText" class="form-control rounded-0" placeholder="Text" autofocus>
                     <button type="button" @click="sendMessage()"
-                        class="btn btn-primary message-btn pl-4 pr-4 ml-1">Send</button>
+                        class="btn btn-primary message-btn  ml-1">Send</button>
                 </div>
             </div>
         </div>

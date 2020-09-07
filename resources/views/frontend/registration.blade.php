@@ -79,6 +79,9 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
+                            <span class="invalid-feedback" role="alert" id="username_error">
+                                <strong></strong>
+                            </span>
                         </div>
                         <div class="form-group">
                             <label>Email</label>
@@ -89,6 +92,9 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
+                            <span class="invalid-feedback" role="alert" id="email_error">
+                                <strong></strong>
+                            </span>
                         </div>
                         <div class="form-group">
                             <label>Password</label>
@@ -98,6 +104,9 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
+                            <span class="invalid-feedback" role="alert" id="password_error">
+                                <strong></strong>
+                            </span>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -200,6 +209,12 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <p>By clicking the "Start Membership" button below, you agree to our <a href="{{ url('terms-services') }}">Terms
+                                    of Use</a>, <a href="{{ url('privacy-policy') }}">Privacy Statement</a>, and that you are over 18. There
+                                is no need to cancel membership as there is no recurrent charges sent to your
+                                account. One time purchases Only. </p>
+                        </div>
+                        <div class="form-group">
                             <input type="submit"
                                 class="border-sn btn btn-primary border-sn bg-sn rounded-0 btn-block pt-3 pb-3"
                                 value="Enter Chat Room" style="background-color: #7b27a3;" id="card-button"
@@ -217,6 +232,7 @@
 
 
 @section('script')
+
 <script>
     $(document).ready(function(){
 
@@ -225,9 +241,15 @@
             $userame = $('#username').val();
             $email = $('#email').val();
             $password = $('#password').val();
+            var pattern = /^\w+([-+.'][^\s]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
             if($userame != ''){
+                $('#username_error strong').css('display', 'none');
                 if($email != ''){
-                    if($password != ''){
+                    $('#email_error strong').css('display', 'none');
+                    if(pattern.test($('#email').val())){
+                        $('#email_error strong').css('display', 'none');
+                        if($password != ''){
+                            $('#password_error strong').css('display', 'none');
                         $('.regisreation-first-setp').fadeOut('200');
                         $('.regisreation-second-step').fadeIn('200');
                         $('#backRegitration1').hide();
@@ -240,17 +262,21 @@
                             $('#backRegitration2').hide();
                         });
                     }else{
-                        $('.reg-first-alert').css('display', 'block');
-                        $('.reg-first-alert').html("Password cann't be null");
+                        $('#password_error strong').css('display', 'block');
+                        $('#password_error strong').html("Password cann't be null");
                     }
+                    }else{
+                        $('#email_error strong').css('display', 'block');
+                        $('#email_error strong').html("Please give a valid email address");
+                    }
+                  
                 }else{
-                    $('.reg-first-alert').css('display', 'block');
-                    $('.reg-first-alert').html("Email cann't be null");
+                    $('#email_error strong').css('display', 'block');
+                    $('#email_error strong').html("Email cann't be null");
                 }
             }else{
-                alert("Username cann't be null");
-                $('.reg-first-alert').css('display', 'block');
-                $('.reg-first-alert').html("Username cann't be null");
+                $('#username_error strong').css('display', 'block');
+                $('#username_error strong').html("Username cann't be null");
             }
             
         });
