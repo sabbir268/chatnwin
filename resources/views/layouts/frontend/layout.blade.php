@@ -119,6 +119,7 @@
 
 
 
+
     {{-- document.addEventListener("DOMContentLoaded", function() {
     loader = document.getElementById('loader');
     loadNow(2.3);

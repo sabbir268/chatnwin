@@ -10,9 +10,9 @@ body {
     border-color: #C34DFB;
 }
 
-.bg-sn {
+/* .bg-sn {
     background-color: #7B27A3;
-}
+} */
 
 button {
     border: none !important;
@@ -79,7 +79,11 @@ h1 {
 }
 
 .chatroom-single a {
-    text-decoration: none;
+    text-decoration: none !important;
+    color: #000000;
+}
+.chatroom-single a:hover {
+    text-decoration: none !important;
     color: #000000;
 }
 
@@ -120,21 +124,36 @@ h1 {
 
 .message-text {
     display: inline-block;
-    margin: 0 10px;
-    padding: 21px;
-    border-radius: 12px;
+    width: 100%;
+    /* padding: 21px; */
+    /* border-radius: 12px; */
 }
 
 .chat-like-option {
     margin: 0px 0px 0 22px;
 }
-
+.message-read-single-sender > .chat-like-option {
+    float: right;
+}
 .chat-like-option a {
     text-decoration: none;
     color: #000;
     margin-right: 14px;
     font-size: 17px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.message-info {
+    margin: 0 2px;
+}
+.message-info  > .btn-group {
+    margin: 0 28px;s
+}
+.message-info h6 {
+    font-weight: bolder;
+}
+.message-read-single-sender > .message-info {
+    display: flex !important;
+    flex-direction: row-reverse !important;
 }
 
 .chat-like-option a:last-child {
@@ -145,15 +164,25 @@ h1 {
     color: #7B27A3 !important;
 }
 
-.message-text-right {
+/* .message-text-right {
     background: #C34DFB;
     color: #fff;
     text-align: left;
+} */
+.message-text-left p {
+    background: #DDDDDD;
+    padding: 18px 30px !important;
+    border-radius: 12px;
+    display: inline-block;
+}
+.message-read-single-sender > .message-text p {
+    background: #7b27a3;
+    color: #fff;
 }
 
-.message-text-left {
+/* .message-text-left {
     background: #DDDDDD;
-}
+} */
 
 .message-image {
     margin: 0 13px;
@@ -259,14 +288,13 @@ h1.chatroom-member-single i {
 
 .message-read-single {
     padding: 0px 10px;
-    width: 60%;
+    width: 100%;
     text-align: left;
     overflow: hidden;
 }
-
 .message-read-single-sender {
     padding: 0px 10px;
-    width: 60%;
+    width: 100%;
     text-align: right;
     float: right;
 }

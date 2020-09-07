@@ -19,7 +19,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            if(Auth::user()->role_id == 2){
+            if(Auth::user()->role == 2){
                 return redirect('/admin/chatroom/create');
             }else{
                 return redirect('/'); 
