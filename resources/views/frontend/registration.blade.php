@@ -120,7 +120,7 @@
                         <div class="col-md-4 offset-md-4">
                             <div class="form-group">
                                 <label>First Name</label>
-                                <input type="text" class="form-control rounded-0" name="first_name"
+                                <input type="text" class="form-control rounded-0" id="first_name" name="first_name"
                                     value="{{ old('first_name') }}">
                                 @error('first_name')
                                 <span class="invalid-feedback" role="alert">
@@ -130,7 +130,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Last Name</label>
-                                <input type="text" class="form-control rounded-0" name="last_name"
+                                <input type="text" class="form-control rounded-0" id="last_name" name="last_name"
                                     value="{{ old('last_name') }}">
                                 @error('last_name')
                                 <span class="invalid-feedback" role="alert">
@@ -200,7 +200,7 @@
                         <div class="form-group">
                             <input type="submit"
                                 class="border-sn btn btn-primary border-sn bg-sn rounded-0 btn-block pt-3 pb-3"
-                                value="Enter Chat Room" style="background-color: #7b27a3;">
+                                value="Enter Chat Room" style="background-color: #7b27a3;" id="card-button" data-secret="{{ $intent->client_secret }}">
                         </div>
                     </div>
                 </div>
@@ -245,75 +245,119 @@
 
 <script>
     // Create a Stripe client.
-    var stripe = Stripe('{{env('STRIPE_KEY')}}');
+    // var stripe = Stripe('{{env('STRIPE_KEY')}}');
 
-    // Create an instance of Elements.
-    var elements = stripe.elements();
+    // // Create an instance of Elements.
+    // var elements = stripe.elements();
 
-    // Custom styling can be passed to options when creating an Element.
-    // (Note that this demo uses a wider set of styles than the guide below.)
-    var style = {
-    base: {
-        color: '#32325d',
-        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-        fontSmoothing: 'antialiased',
-        fontSize: '16px',
-        '::placeholder': {
-        color: '#aab7c4'
-        }
-    },
-    invalid: {
-        color: '#fa755a',
-        iconColor: '#fa755a'
-    }
-    };
+    // // Custom styling can be passed to options when creating an Element.
+    // // (Note that this demo uses a wider set of styles than the guide below.)
+    // var style = {
+    // base: {
+    //     color: '#32325d',
+    //     fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+    //     fontSmoothing: 'antialiased',
+    //     fontSize: '16px',
+    //     '::placeholder': {
+    //     color: '#aab7c4'
+    //     }
+    // },
+    // invalid: {
+    //     color: '#fa755a',
+    //     iconColor: '#fa755a'
+    // }
+    // };
 
-    // Create an instance of the card Element.
-    var card = elements.create('card', {style: style});
+    // // Create an instance of the card Element.
+    // var card = elements.create('card', {style: style});
 
-    // Add an instance of the card Element into the `card-element` <div>.
-    card.mount('#card-element');
+    // // Add an instance of the card Element into the `card-element` <div>.
+    // card.mount('#card-element');
 
-    // Handle real-time validation errors from the card Element.
-    card.on('change', function(event) {
-    var displayError = document.getElementById('card-errors');
-    if (event.error) {
-        displayError.textContent = event.error.message;
-    } else {
-        displayError.textContent = '';
-    }
-    });
+    // // Handle real-time validation errors from the card Element.
+    // card.on('change', function(event) {
+    // var displayError = document.getElementById('card-errors');
+    // if (event.error) {
+    //     displayError.textContent = event.error.message;
+    // } else {
+    //     displayError.textContent = '';
+    // }
+    // });
 
-    // Handle form submission.
-    var form = document.getElementById('cnw_registration_from');
-    form.addEventListener('submit', function(event) {
-    event.preventDefault();
+    // // Handle form submission.
+    // var form = document.getElementById('cnw_registration_from');
+    // form.addEventListener('submit', function(event) {
+    // event.preventDefault();
 
-    stripe.createToken(card).then(function(result) {
-        if (result.error) {
-        // Inform the user if there was an error.
-        var errorElement = document.getElementById('card-errors');
-        errorElement.textContent = result.error.message;
-        } else {
-        // Send the token to your server.
-        stripeTokenHandler(result.token);
-        }
-    });
-    });
+    // stripe.createToken(card).then(function(result) {
+    //     if (result.error) {
+    //     // Inform the user if there was an error.
+    //     var errorElement = document.getElementById('card-errors');
+    //     errorElement.textContent = result.error.message;
+    //     } else {
+    //     // Send the token to your server.
+    //     //  console.log(result)
+    //     stripeTokenHandler(result.token);
+    //     }
+    // });
+    // });
 
-    // Submit the form with the token ID.
-    function stripeTokenHandler(token) {
-    // Insert the token ID into the form so it gets submitted to the server
-    var form = document.getElementById('cnw_registration_from');
-    var hiddenInput = document.createElement('input');
-    hiddenInput.setAttribute('type', 'hidden');
-    hiddenInput.setAttribute('name', 'stripeToken');
-    hiddenInput.setAttribute('value', token.id);
-    form.appendChild(hiddenInput);
+    // // Submit the form with the token ID.
+    // function stripeTokenHandler(token) {
+    // // Insert the token ID into the form so it gets submitted to the server
+    // var form = document.getElementById('cnw_registration_from');
+    // var hiddenInput = document.createElement('input');
+    // hiddenInput.setAttribute('type', 'hidden');
+    // hiddenInput.setAttribute('name', 'stripeToken');
+    // hiddenInput.setAttribute('value', token.id);
+    // form.appendChild(hiddenInput);
 
-    // Submit the form
-    form.submit();
-    }
+    // // Submit the form
+    // form.submit();
+    // }
+
+                        const form = document.getElementById( 'cnw_registration_from' );
+                        const stripe = Stripe('{{env('STRIPE_KEY')}}');
+                        const elements = stripe.elements();
+                        const cardElement = elements.create('card');
+                        const cardHolderName = document.getElementById('first_name') +" " + document.getElementById('first_name');
+                        const cardButton = document.getElementById('card-button');
+                        const clientSecret = cardButton.dataset.secret;
+                        
+                        cardElement.mount('#card-element');
+
+                        form.addEventListener( 'submit', (e) => {
+                            e.preventDefault();
+                        });
+
+                        cardButton.addEventListener( 'click', async (e) => {
+                            const { setupIntent, error } = await stripe.handleCardSetup(
+                                clientSecret, cardElement, {
+                                    payment_method_data: {
+                                        billing_details: { name: cardHolderName.value }
+                                    }
+                                }
+                            );
+
+                            if (error) {
+                                console.log(error)
+                                // Display "error.message" to the user...
+                            } else {
+                                // The card has been verified successfully...
+                                handleStripePayment( setupIntent );
+                            }
+                        });
+
+                        let handleStripePayment = setupIntent => {
+                            
+                            let paymentInput = document.createElement( 'input' );
+                            paymentInput.setAttribute( 'name', 'stripePaymentMethod' );
+                            paymentInput.setAttribute( 'type', 'hidden' );
+                            paymentInput.setAttribute( 'value', setupIntent.payment_method );
+                            form.appendChild( paymentInput );
+
+                            form.submit();
+                        }
 </script>
 
 

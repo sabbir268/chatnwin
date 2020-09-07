@@ -65,7 +65,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        
+
         return Validator::make($data, [
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -75,7 +75,7 @@ class RegisterController extends Controller
             'zip_code' => ['required'],
             // 'card_number' => ['required'],
             // 'expiration_date' => ['required'],
-            // 'security_code' => ['required'],
+            'stripePaymentMethod' => ['required'],
         ]);
     }
 
@@ -87,7 +87,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'username' => $data['username'],
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
@@ -99,6 +99,17 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'api_token' => Str::random(60),
         ]);
-        return redirect($this->redirectTo())->with('message', 'Your message');
+
+        $paymentMethodID = $data['stripePaymentMethod'];
+
+        if ($user->stripe_id == null) {
+            $user->createAsStripeCustomer();
+        }
+
+        $user->addPaymentMethod($paymentMethodID);
+        $user->updateDefaultPaymentMethod($paymentMethodID);
+
+
+        return $user;
     }
 }

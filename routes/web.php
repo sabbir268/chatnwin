@@ -29,7 +29,10 @@ Route::get('terms-services', function () {
     return view('frontend.terms_services');
 });
 Route::get('registration', function () {
-    return view('frontend.registration');
+    $user = new \App\User;
+    return view('frontend.registration', [
+        'intent' => $user->createSetupIntent()
+    ]);
 });
 
 
@@ -70,7 +73,7 @@ Route::get('clear/cache', function () {
 });
 
 
-Route::get('test-chat', function () {
-    $chat = json_encode(['message' => 'Hello']);
-    broadcast(new ChatEvent($chat));
+Route::get('test-stripe', function () {
+    $user = auth()->user();
+    return dd($user->charge(100, $user->defaultPaymentMethod()->id));
 });
