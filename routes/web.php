@@ -47,9 +47,14 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin',], function
     Route::post('chatroom/delete', 'Admin\ChatRoomController@destroy')->name('admin.chatroom.delete');
     Route::get('winners', 'Admin\ChatRoomController@winners')->name('winners');
 });
+
+
+Route::get('chatroom/{slug}', 'Admin\ChatRoomController@enterRoom')->name('chatroom');
+
 Route::group(['middleware' => 'auth'], function () {
     /**chat room and chat */
-    Route::get('chatroom/{slug}', 'Admin\ChatRoomController@enterRoom')->name('chatroom');
+
+
 
     Route::post('chat', 'ChatController@store');
     Route::get('chat/{chat_room_id}', 'ChatController@getAllByChatroom');
@@ -75,5 +80,6 @@ Route::get('clear/cache', function () {
 
 Route::get('test-stripe', function () {
     $user = auth()->user();
-    return dd($user->charge(100, $user->defaultPaymentMethod()->id));
+  //  dd($user->hasPaymentMethod());
+    return dd($user->charge(100, $user->defaultPaymentMethod()->id)->status);
 });

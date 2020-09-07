@@ -45,12 +45,11 @@ class ChatRoomController extends Controller
 
     public function edit($id)
     {
-         $chatroom = ChatRoom::findOrFail($id);
-         return view('admin.chatroom.edit', compact('chatroom'));
-
+        $chatroom = ChatRoom::findOrFail($id);
+        return view('admin.chatroom.edit', compact('chatroom'));
     }
 
-    public function update(Request $request , $id)
+    public function update(Request $request, $id)
     {
         $chatroom = ChatRoom::findorFail($id);
 
@@ -85,21 +84,34 @@ class ChatRoomController extends Controller
     public function enterRoom($slug)
     {
         $chatRoom = ChatRoom::whereSlug($slug)->first();
+        if (auth()->check()) {
+            if (session()->has('chat_init')) {
+                session()->forget('chat_init');
+            }
+            if (!checkJoined($chatRoom->id, auth()->user()->id)) {
+                $charge = chargeClient(auth()->user()->id);
+                if ($charge['status'] == 'success') {
+                    $join = JoinChatRoom::create([
+                        'chat_room_id' => $chatRoom->id,
+                        'user_id' => auth()->user()->id,
+                        'is_online' => 1,
+                        'type' => 1
+                    ]);
 
-        if (!checkJoined($chatRoom->id, auth()->user()->id)) {
-            $join = JoinChatRoom::create([
-                'chat_room_id' => $chatRoom->id,
-                'user_id' => auth()->user()->id,
-                'is_online' => 1,
-            ]);
-
-            if ($join) {
-                return view('frontend.chat', compact('chatRoom'));
+                    if ($join) {
+                        return view('frontend.chat', compact('chatRoom'));
+                    } else {
+                        return 'Something went wrong';
+                    }
+                } else {
+                    return $charge['message'];
+                }
             } else {
-                return 'Something went wrong';
+                return view('frontend.chat', compact('chatRoom'));
             }
         } else {
-            return view('frontend.chat', compact('chatRoom'));
+            session()->put('chat_init', $chatRoom->slug);
+            return redirect('/registration');
         }
     }
 

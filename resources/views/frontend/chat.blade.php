@@ -51,7 +51,7 @@
                     <div class="message-info d-flex justify-content-start">
                         <h6 class="m-0 p-0">@{{message.username}}</h6>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-default active "  aria-haspopup="true"
+                            <button type="button" class="btn btn-default active " aria-haspopup="true"
                                 aria-expanded="false" style="background: #fff !important;padding:0;">
                                 <i class="fas fa-ellipsis-h"></i>
                             </button>
@@ -59,76 +59,41 @@
                                 <button class="dropdown-item" type="button">Report Message</button>
                             </div>
                         </div>
-                        {{-- <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
-                        sagittis lacus vel augue laoreet rutrum faucibus.">
-                        <i class="fas fa-ellipsis-h"></i>
-                        </button> --}}
                     </div>
                     <div class="message-text message-text-left">
                         <p class="m-0 p-0">@{{message.message}}</p>
                     </div>
                     <div class="chat-like-option d-flex justify-content-lg-start">
-                        <a href="#" class="chat-like-active">
+                        <span class="chat-like-active" @click="message.total_likes++">
                             <i class="fas fa-thumbs-up"></i> @{{message.total_likes}}
-                        </a>
-                        <a href="#">
-                            <i class="fas fa-thumbs-down"></i> @{{message.deslikes}}
-                        </a>
+                        </span>
+
+                        <span class="" @click="message.total_deslikes++">
+                            <i class="fas fa-thumbs-down"></i> @{{message.total_deslikes}}
+                        </span>
+
                     </div>
                 </div>
             </div>
 
-            {{-- <div class="message-read-single-sender">
-                <div class="message-info d-flex justify-content-between">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false" style="background: #fff !important;padding:0;">
-                            <i class="fas fa-ellipsis-h"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-left">
-                            <button class="dropdown-item" type="button">Report Message</button>
-                        </div>
+        </div>
+        <!-- Sender area -->
+        <div class="message-send-area">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-start">
+                    <div id="imoje">
+                        <i class="far fa-smile"></i>
                     </div>
-                    <h6 class="m-0 p-0">Username</h6>
+                    <div id="link-libery">
+                        <i class="fas fa-paperclip"></i>
+                    </div>
+                    <input type="text" v-model="chatText" class="form-control rounded-0" placeholder="Text" autofocus>
+                    <button type="button" @click="sendMessage()"
+                        class="btn btn-primary message-btn pl-4 pr-4 ml-1">Send</button>
                 </div>
-                <div class="message-text message-text-right">
-                    <p class="m-0 p-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis provident unde
-                        dicta. Vel rem odio minima nemo adipisci, officiis cupiditate!</p>
-                </div>
-                <div class="message-image">
-                    <div class="w-100">
-                        <img src="{{ asset('assets/frontend/images/chat/thumb-v-v-1.jpg') }}" class="w-100" alt="img">
+            </div>
         </div>
     </div>
-    <div class="chat-like-option d-flex justify-content-lg-start">
-        <a href="#" class="chat-like-active">
-            <i class="fas fa-thumbs-up"></i> 10
-        </a>
-        <a href="#">
-            <i class="fas fa-thumbs-down"></i> 20
-        </a>
-    </div>
-</div> --}}
-
-
-</div>
-<!-- Sender area -->
-<div class="message-send-area">
-    <div class="row">
-        <div class="col-12 d-flex justify-content-start">
-            <div id="imoje">
-                <i class="far fa-smile"></i>
-            </div>
-            <div id="link-libery">
-                <i class="fas fa-paperclip"></i>
-            </div>
-            <input type="text" v-model="chatText" class="form-control rounded-0" placeholder="Text" autofocus>
-            <button type="button" @click="sendMessage()"
-                class="btn btn-primary message-btn pl-4 pr-4 ml-1">Send</button>
-        </div>
-    </div>
-</div>
-</div>
 </div>
 @endsection
 
@@ -164,12 +129,6 @@
                 });
 
              window.Echo.join('chat-channel.'+ this.chatRoomId)
-                    // .joining((user) => {
-                    //     axios.get(`/online/${this.chatRoomId}`);
-                    // })
-                    // .leaving((user) => {
-                    //     axios.get(`/offline/${this.chatRoomId}`);
-                    // })
                     .listen('UserOnline', (e) => {
                         console.log(e)
                     })
@@ -180,12 +139,12 @@
 
             this.getAllMessage();
             this.getAllMember();
-            this.scrollToEnd();
+            // this.scrollToEnd();
         },
 
-        mounted() {
-            this.scrollToEnd();
-        },
+        // mounted() {
+        //     this.scrollToEnd();
+        // },
 
         methods:{
             sendMessage(){
@@ -194,6 +153,7 @@
                     message: this.chatText,
                 }).then(res => {
                     console.log(res)
+                    this.chatText = ''
                 }).catch(err => {
                     console.log(err)
                 })
@@ -245,7 +205,11 @@
 
 
 <script>
-    var objDiv = document.getElementById("#message-rad");
-    objDiv.scrollTop = objDiv.scrollHeight;
+    // var objDiv = document.getElementById("#message-rad");
+    // objDiv.scrollTop = objDiv.scrollHeight;
+
+    $(document).ready(function() {
+        $(".dropdown-toggle").dropdown();
+    });
 </script>
 @endsection

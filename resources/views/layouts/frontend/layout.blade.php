@@ -64,7 +64,6 @@
             overflow: visible;
             background: #FBFBFB url('assets/frontend/images/loader/beginning_animation.gif') no-repeat center center;
         }
-
     </style>
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -105,6 +104,31 @@
             </nav>
         </div>
     </header>
+
+    @if(auth()->check())
+    @if (!request()->is('account/*')))
+    <div class="modal fadeIn" id="welcomModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-0">
+                <div class="modal-body">
+                    <div class="welcome-message p-3 text-center">
+                        <h5>Welcome to Sneakly {{request()->is('/account/nasim')}}</h5>
+                        <p class="font-weight-bolder">We are glad you’ve become a member,
+                            However there’s one last step before we can begin. In order for you to win the bonus you
+                            must
+                            enter your
+                            address in My Account.</p>
+                        <a href="{{ url('account/'.Auth::user()->username) }}"
+                            class="btn btn-primary rounded-0 border-sn bg-snw pl-5 pr-5 pt-2 pb-2">Ok</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+
+    @endif
+
     <div class="main-area text-center" style="margin-top: 100px;">
         @yield('content')
     </div>
@@ -130,6 +154,17 @@
             $('.select2').select2();
         });
     </script>
+
+    @if (auth()->check())
+    @if (!auth()->user()->address)
+    <script>
+        $(document).ready(function(){
+            $('#welcomModal').modal('show');
+          })
+    </script>
+    @endif
+    @endif
+
     <script>
         $(document).ready(function(){
                 let token = '{{auth()->check() ? auth()->user()->api_token : ""}}';

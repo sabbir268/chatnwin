@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -63,6 +65,21 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+        if (session()->has('chat_init')) {
+            return redirect('chatroom/' . session()->get('chat_init'));
+        }
+        return $this->registered($request, $user)
+            ?: redirect()->intended($this->redirectPath());
+    }
+
     protected function validator(array $data)
     {
 
@@ -72,7 +89,7 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8'],
             'first_name' => ['required', 'string'],
             'last_name' => ['required', 'string'],
-            'zip_code' => ['required'],
+            // 'zip_code' => ['required'],
             // 'card_number' => ['required'],
             // 'expiration_date' => ['required'],
             'stripePaymentMethod' => ['required'],
@@ -91,7 +108,7 @@ class RegisterController extends Controller
             'username' => $data['username'],
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
-            'zip_code' => $data['zip_code'],
+            // 'zip_code' => $data['zip_code'],
             // 'card_number' => $data['card_number'],
             // 'expiration_date' => $data['expiration_date'],
             // 'security_code' => $data['security_code'],
