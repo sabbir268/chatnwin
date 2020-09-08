@@ -250,6 +250,9 @@
                         $('#email_error strong').css('display', 'none');
                         if($password != ''){
                             $('#password_error strong').css('display', 'none');
+                            if($('#password').val().length >= 8){
+                                $('#password_error strong').css('display', 'none');
+
                         $('.regisreation-first-setp').fadeOut('200');
                         $('.regisreation-second-step').fadeIn('200');
                         $('#backRegitration1').hide();
@@ -261,6 +264,10 @@
                             $('#backRegitration1').show();
                             $('#backRegitration2').hide();
                         });
+                    }else{
+                        $('#password_error strong').css('display', 'block');
+                        $('#password_error strong').html('password at least 8 characters');
+                    }
                     }else{
                         $('#password_error strong').css('display', 'block');
                         $('#password_error strong').html("Password cann't be null");
