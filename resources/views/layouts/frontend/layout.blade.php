@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/style.css') }}">
     <meta name="csrf-token" content="{{csrf_token()}}">
     @yield('header')
-    <link rel="icon" href="{{ asset('assets/frontend/images/logo/logo.png') }}" type="image/gif" sizes="16x16">
+    <link rel="icon" href="{{ asset('assets/frontend/images/favicon.png') }}" type="image/gif" sizes="16x16">
     <style>
         #loader {
             position: fixed;
@@ -64,6 +64,9 @@
             overflow: visible;
             background: #FBFBFB url('assets/frontend/images/loader/beginning_animation.gif') no-repeat center center;
         }
+        li.nav-item {
+            margin-left: 17px;
+        }
     </style>
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -73,21 +76,15 @@
     style="@if(Request::path() == 'privacy-policy' || Request::path() == 'terms-services') background: #E5E5E5 @endif">
     <header class="hedar-area">
         <div class="container-fluid">
-            <nav
-                class="navbar navbar-expand-lg navbar-light @if(Request::path() == 'privacy-policy' || Request::path() == 'terms-services') @else bg-white  @endif fixed-top">
+            <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-between @if(Request::path() == 'privacy-policy' || Request::path() == 'terms-services') @else bg-white  @endif fixed-top">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{ asset('assets/frontend/images/logo/logo.png') }}" alt="logo" style="width:80%;">
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                 <div class="menu-item">
                     <ul class="navbar-nav ml-auto">
                         @yield('menu-item')
                         @if(Auth::check())
+                        <li class="nav-item">
                         <a class="nav-link logout-button"
                             onclick="event.preventDefault(); document.getElementById('frm-logout').submit();"
                             href="javascript:void(0)">
@@ -97,6 +94,7 @@
                             </form>
 
                         </a>
+                        </li>
                         @endif
                     </ul>
                 </div>

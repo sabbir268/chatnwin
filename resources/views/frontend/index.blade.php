@@ -1,6 +1,16 @@
 @extends('layouts.frontend.layout')
 @section('header')
 <title>Sneakly</title>
+<style>
+  @media only screen and (max-width: 600px) {
+    h1 {
+      font-size: 18px !important;
+    }
+    .chatroom-single h3 {
+    font-size: 12px;
+}
+  }
+</style>
 @endsection
 @section('menu-item')
 <li class="nav-item">

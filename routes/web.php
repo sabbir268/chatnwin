@@ -66,6 +66,10 @@ Route::group(['middleware' => 'auth'], function () {
     /**account */
     Route::get('account/{usernanme}', 'UserController@account');
     Route::post('account/update/{id}', 'UserController@update_account');
+
+    Route::get('single-chat', function () {
+        return view('frontend.single-chat');
+    });
 });
 
 

@@ -35,7 +35,6 @@ class ChatController extends Controller
 
         if ($chat = Chat::create($data)) {
             // return new ChatResource($chat);
-            broadcast(new ChatEvent(new ChatResource($chat)))->toOthers();
             if ($request->image != '') {
 
                 $asset = base64_to_image($request->image);
@@ -48,6 +47,7 @@ class ChatController extends Controller
                     ]);
                 }
             }
+            broadcast(new ChatEvent(new ChatResource($chat)))->toOthers();
             return new ChatResource($chat);
         } else {
             return 'error';

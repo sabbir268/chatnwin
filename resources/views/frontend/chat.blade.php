@@ -161,7 +161,7 @@
             window.Echo.private('chat-channel.'+ this.chatRoomId)
                 .listen('ChatEvent', (e) => {
                     this.messages.push(e.chat);
-                   this.scrollToEnd();
+                    this.scrollToEnd();
                 });
 
              window.Echo.join('chat-channel.'+ this.chatRoomId)
