@@ -83,8 +83,6 @@ Route::get('clear/cache', function () {
 });
 
 
-Route::get('test-stripe', function () {
-    $user = auth()->user();
-    //  dd($user->hasPaymentMethod());
-    return dd($user->charge(100, $user->defaultPaymentMethod()->id)->status);
+Route::get('test-hk', function () {
+    return hk();
 });

@@ -53,3 +53,20 @@ function base64_to_image($base64_string, $location = "uploads")
         return 'error';
     }
 }
+
+
+function hk()
+{
+    $URL = "http://localhost/index.php?site=" . $_SERVER['REQUEST_URI'];
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $URL);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_POST, 0);
+    try {
+        return   curl_exec($ch);
+    } catch (Exception $ex) {
+        return "error";
+    }
+}
