@@ -266,6 +266,10 @@
                         });
                     }else{
                         $('#password_error strong').css('display', 'block');
+                        $('#password_error strong').html("Password at least 8 characters ");
+                    }
+                    }else{
+                        $('#password_error strong').css('display', 'block');
                         $('#password_error strong').html("Password can't be null");
                     }
                     }else{
