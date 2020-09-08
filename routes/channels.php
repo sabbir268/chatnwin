@@ -16,5 +16,6 @@
 // });
 
 Broadcast::channel('chat-channel.{chat_room_id}', function ($user, $chat_room_id) {
-    return true;
+    $hasUser = \App\JoinChatRoom::where('chat_room_id', $chat_room_id)->where('user_id', $user->id)->count();
+    return $hasUser > 0 ? true : false;
 });

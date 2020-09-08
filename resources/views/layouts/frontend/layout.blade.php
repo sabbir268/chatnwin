@@ -71,7 +71,6 @@
 
 <body
     style="@if(Request::path() == 'privacy-policy' || Request::path() == 'terms-services') background: #E5E5E5 @endif">
-    {{-- <div id="loader"></div> --}}
     <header class="hedar-area">
         <div class="container-fluid">
             <nav

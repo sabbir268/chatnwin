@@ -263,20 +263,20 @@
                         });
                     }else{
                         $('#password_error strong').css('display', 'block');
-                        $('#password_error strong').html("Password cann't be null");
+                        $('#password_error strong').html("Password can't be null");
                     }
                     }else{
                         $('#email_error strong').css('display', 'block');
-                        $('#email_error strong').html("Please give a valid email address");
+                        $('#email_error strong').html("Please provide a valid email address");
                     }
                   
                 }else{
                     $('#email_error strong').css('display', 'block');
-                    $('#email_error strong').html("Email cann't be null");
+                    $('#email_error strong').html("Email can't be null");
                 }
             }else{
                 $('#username_error strong').css('display', 'block');
-                $('#username_error strong').html("Username cann't be null");
+                $('#username_error strong').html("Username can't be null");
             }
             
         });

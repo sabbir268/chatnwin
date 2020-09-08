@@ -31,6 +31,24 @@ export default {
       hooperSettings: {
         itemsToShow: 10,
         centerMode: true,
+        breakpoints: {
+          100: {
+            centerMode: false,
+            itemsToShow: 1,
+          },
+          300: {
+            centerMode: false,
+            itemsToShow: 3,
+          },
+          800: {
+            centerMode: false,
+            itemsToShow: 6,
+          },
+          1000: {
+            itemsToShow: 8,
+            pagination: "fraction",
+          },
+        },
       },
     };
   },

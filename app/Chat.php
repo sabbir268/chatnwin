@@ -36,7 +36,7 @@ class Chat extends Model
     public function getIsReactedAttribute()
     {
         $reacted = $this->chatLike()->where('user_id', auth()->user()->id)->first();
-        return $reacted ? $reacted->like == 1 ? 'liked' : 'dislike' : '';
+        return $reacted ? ($reacted->like == 1 ? 'like' : 'dislike') : '';
     }
 
     public function chatReport()

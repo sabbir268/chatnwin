@@ -107,6 +107,7 @@ class ChatRoomController extends Controller
                     return $charge['message'];
                 }
             } else {
+                JoinChatRoom::where('chat_room_id', $chatRoom->id)->where('user_id', auth()->user()->id)->update(['is_online' => 1]);
                 return view('frontend.chat', compact('chatRoom'));
             }
         } else {

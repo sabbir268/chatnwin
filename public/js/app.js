@@ -1940,7 +1940,25 @@ __webpack_require__.r(__webpack_exports__);
     return {
       hooperSettings: {
         itemsToShow: 10,
-        centerMode: true
+        centerMode: true,
+        breakpoints: {
+          100: {
+            centerMode: false,
+            itemsToShow: 1
+          },
+          300: {
+            centerMode: false,
+            itemsToShow: 3
+          },
+          800: {
+            centerMode: false,
+            itemsToShow: 6
+          },
+          1000: {
+            itemsToShow: 8,
+            pagination: "fraction"
+          }
+        }
       }
     };
   },
@@ -6411,7 +6429,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.hooper {\n  height: auto !important;\n}\n.hooper:focus {\n  outline: none;\n}\n", ""]);
+exports.push([module.i, "\n.hooper {\r\n  height: auto !important;\n}\n.hooper:focus {\r\n  outline: none;\n}\r\n", ""]);
 
 // exports
 
@@ -61409,7 +61427,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\chatnwin\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\personal\chatnwin\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

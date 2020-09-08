@@ -1,7 +1,6 @@
 @extends('layouts.frontend.layout')
 @section('header')
 <title>Chat | Sneklay</title>
-{{-- assets\frontend\emoji\css --}}
 
 <style>
     .emoji-area {
@@ -14,7 +13,6 @@
     .em-show {
         display: none;
     }
-
 </style>
 
 @endsection
@@ -84,21 +82,31 @@
         <!-- Sender area -->
         <div class="message-send-area">
             <div class="row">
+                <div class="col-12 pb-1" style="padding-left:5.4%">
+                    <div class="show-image" v-if="chatImage" style="height: 50px;width:50px;float:left;">
+                        <img :src="chatImage" class="w-100">
+                        <i v-if="chatImage" class="fa fa-times" style="border:1px;cursor:pointer;position: absolute;"
+                            @click="clearImage"></i> </div>
+                </div>
                 <div class="col-12 d-flex justify-content-start">
                     <div id="imoje">
                         <i class="far fa-smile"></i>
                     </div>
-                    <div id="link-libery">
-                        <i class="fas fa-paperclip"></i>
-                    </div>
+                    <label for="chat-image" id="link-libery"> <i class="fas fa-paperclip"></i></label>
+                    <input type="file" v-model="chatAsset" class="d-none" @change="onFileChange" id="chat-image">
                     <div class="emoji-area em-show">
                         <emoji-picker></emoji-picker>
                     </div>
-                    <input type="text" id="sn-msg-box" v-model="chatText" class="form-control rounded-0"
+                    {{-- <input type="text" id="sn-msg-box" v-model="chatText" class="form-control rounded-0"
                         placeholder="Text" autofocus>
-                    <button type="button" @click="sendMessage()"
-                        class="btn btn-primary message-btn  ml-1">Send</button>
+                     --}}
+                    <textarea id="sn-msg-box" v-model="chatText" class="form-control rounded-0" rows="1"
+                        placeholder="Text" style="height: 38px !important;" autofocus></textarea>
+
+                    <button type="button" @click="sendMessage()" class="btn btn-primary message-btn  ml-1"
+                        style="height: 38px !important;">Send</button>
                 </div>
+
             </div>
         </div>
     </div>
@@ -111,14 +119,13 @@
 <script>
     const app = new Vue({
         el: '#chat',
-
-     
-
         data:{
             messages: [],
             chatRoomId: '{{$chatRoom->id}}',
             userId: '{{auth()->user()->id}}',
             chatText: '',
+            chatImage: '',
+            chatAsset: '',
             members: [],
             checkmm: [],
 
@@ -127,6 +134,15 @@
                 centerMode: true
             },
             api_token: '{{auth()->user()->api_token}}'
+        },
+
+       watch: {
+            messages: function () {
+                setTimeout(function () {
+                  //$(".message-rad").stop().animate({ scrollTop: $(".message-rad")[0].scrollHeight}, 1000);
+                   $('.message-rad').scrollTop(999999999);
+                }, 100)
+            }
         },
 
         created(){
@@ -156,6 +172,9 @@
 
         methods:{
             sendMessage(){
+            if(this.chatImage != ""){
+                this.sendMessageWithImage();
+            }else{
                 axios.post('/chat',{
                     chat_room_id: this.chatRoomId,
                     message: this.chatText,
@@ -165,7 +184,27 @@
                 }).catch(err => {
                     console.log(err)
                 })
+             }   
             },
+
+            sendMessageWithImage() {
+                let vm = this;
+                let formData = new FormData();
+                formData.append("chat_room_id", this.chatRoomId);
+                formData.append("message", this.chatText);
+                formData.append("file", this.chatAsset);
+                axios.post("/chat", formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                    })
+                    .then(function (res) {
+                        console.log(res)
+                    })
+                    .catch(function (err) {
+                        console.log(err);
+                    });
+                },
 
             getAllMessage(){
                 axios.get(`/chat/${this.chatRoomId}`)
@@ -183,11 +222,13 @@
                     }).catch(err => {
                         console.log(err)
                     });
-                    if(chat.is_reacted != ""){
-                        chat.total_deslikes--
+                    if(chat.is_reacted != "like"){
+                        if(chat.is_reacted == "dislike"){
+                            chat.total_deslikes--
+                        }
+                        chat.total_likes++
+                        chat.is_reacted = 'like'
                     }
-                    chat.total_likes++
-                    chat.is_reacted = 'like'
             },
 
             chatDislike(chat){
@@ -197,11 +238,13 @@
                     }).catch(err => {
                         console.log(err)
                     });
-                    if(chat.is_reacted != ""){
-                        chat.total_likes--
+                    if(chat.is_reacted != "dislike"){
+                        if(chat.is_reacted == "like"){
+                            chat.total_likes--
+                        }
+                        chat.total_deslikes++
+                        chat.is_reacted = 'dislike'
                     }
-                    chat.total_deslikes++
-                    chat.is_reacted = 'dislike'
             },
 
             getAllMember(){
@@ -227,10 +270,16 @@
                     });
                 },
 
+            onFileChange(e) {
+                const file = e.target.files[0];
+                this.chatImage = URL.createObjectURL(file);
+            },
+            clearImage(){
+                this.chatImage = "";
+
+                $('#chat-image').val('');
+            },
             scrollToEnd() {
-                // var container = this.$el.querySelector(".message-rad");
-                // container.scrollTop = container.scrollHeight+100;
-                // $('.message-rad').scrollTop($('.message-rad')[0].scrollHeight+1000);
                 $(".message-rad").stop().animate({ scrollTop: $(".message-rad")[0].scrollHeight}, 1000);
             },
 
@@ -243,9 +292,6 @@
 
 
 <script>
-    // var objDiv = document.getElementById("#message-rad");
-    // objDiv.scrollTop = objDiv.scrollHeight;
-
     $(document).ready(function() {
         $(".dropdown-toggle").dropdown();
         // $(".message-rad").stop().animate({ scrollTop: $(".message-rad")[0].scrollHeight}, 100000);

@@ -18,10 +18,17 @@ class ChatController extends Controller
 
     public function store(Request $request)
     {
+        if ($request->hasFile('image')) {
+            return "yes";
+        }
         $data = $request->validate([
             'message' => 'required',
             'chat_room_id' => 'required',
         ]);
+
+        if ($request->hasFile('image')) {
+            return "yes";
+        }
 
         $data['user_id'] = auth()->user()->id;
 
