@@ -13,6 +13,7 @@
     .em-show {
         display: none;
     }
+
 </style>
 
 @endsection
@@ -60,8 +61,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="message-text message-text-left">
+                    <div v-if="message.message" class="message-text message-text-left">
                         <p class="m-0 p-0">@{{message.message}}</p>
+                    </div>
+                    <div v-if="message.has_asset" class="message-image"
+                        style="height: 82px;width: 70px;margin-left: 32px;">
+                        <div v-for="img in message.images" class="w-100">
+                            <img :src="`/${img}`" class="w-100" alt="img">
+                        </div>
                     </div>
                     <div class="chat-like-option d-flex justify-content-lg-start">
                         <span :class="`${message.is_reacted == 'like' ? 'chat-like-active' : ''}`"
@@ -92,8 +99,11 @@
                     <div id="imoje">
                         <i class="far fa-smile"></i>
                     </div>
-                    <label for="chat-image" id="link-libery"> <i class="fas fa-paperclip"></i></label>
-                    <input type="file" v-model="chatAsset" class="d-none" @change="onFileChange" id="chat-image">
+                    <label v-if="assetLimit < 3" for="chat-image" id="link-libery"> <i
+                            class="fas fa-paperclip"></i></label>
+                    <label v-else id="link-libery"> <i class="fas fa-paperclip"></i></label>
+
+                    <input type="file" class="d-none" onchange="uploadPhotos('/')" id="chat-image" disable>
                     <div class="emoji-area em-show">
                         <emoji-picker></emoji-picker>
                     </div>
@@ -125,7 +135,7 @@
             userId: '{{auth()->user()->id}}',
             chatText: '',
             chatImage: '',
-            chatAsset: '',
+            assetLimit: 0,
             members: [],
             checkmm: [],
 
@@ -141,7 +151,9 @@
                 setTimeout(function () {
                   //$(".message-rad").stop().animate({ scrollTop: $(".message-rad")[0].scrollHeight}, 1000);
                    $('.message-rad').scrollTop(999999999);
-                }, 100)
+                }, 100);
+
+                this.assetLimit = this.messages[this.messages.length -1].asset_limit
             }
         },
 
@@ -172,39 +184,21 @@
 
         methods:{
             sendMessage(){
-            if(this.chatImage != ""){
-                this.sendMessageWithImage();
-            }else{
                 axios.post('/chat',{
                     chat_room_id: this.chatRoomId,
                     message: this.chatText,
+                    image: this.chatImage,
                 }).then(res => {
                     console.log(res)
                     this.chatText = ''
+                    this.chatImage = ''
+                    this.messages.push(res.data.data);
+                    this.assetLimit = res.data.data.asset_limit
+                    this.scrollToEnd();
                 }).catch(err => {
                     console.log(err)
                 })
-             }   
             },
-
-            sendMessageWithImage() {
-                let vm = this;
-                let formData = new FormData();
-                formData.append("chat_room_id", this.chatRoomId);
-                formData.append("message", this.chatText);
-                formData.append("file", this.chatAsset);
-                axios.post("/chat", formData, {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
-                    })
-                    .then(function (res) {
-                        console.log(res)
-                    })
-                    .catch(function (err) {
-                        console.log(err);
-                    });
-                },
 
             getAllMessage(){
                 axios.get(`/chat/${this.chatRoomId}`)
@@ -270,10 +264,10 @@
                     });
                 },
 
-            onFileChange(e) {
-                const file = e.target.files[0];
-                this.chatImage = URL.createObjectURL(file);
-            },
+            // onFileChange(e) {
+            //     const file = e.target.files[0];
+            //     this.chatImage = file.;
+            // },
             clearImage(){
                 this.chatImage = "";
 
@@ -310,6 +304,55 @@
     });
     document.querySelector('emoji-picker').addEventListener('emoji-click', event => app.chatText += event.detail.unicode);
 
+</script>
+
+
+<script>
+    window.uploadPhotos = function (url) {
+        var file = event.target.files[0];
+        // Ensure it's an image
+        if (file.type.match(/image.*/)) {
+            console.log('An image has been loaded');
+            // Load the image
+            var reader = new FileReader();
+            reader.onload = function (readerEvent) {
+                var image = new Image();
+                image.onload = function (imageEvent) {
+                    // Resize the image
+                    var canvas = document.createElement('canvas'),
+                        max_size = 544,// TODO : pull max size from a site config
+                        width = image.width,
+                        height = image.height;
+                    if (width > height) {
+                        if (width > max_size) {
+                            height *= max_size / width;
+                            width = max_size;
+                        }
+                    } else {
+                        if (height > max_size) {
+                            width *= max_size / height;
+                            height = max_size;
+                        }
+                    }
+                    canvas.width = width;
+                    canvas.height = height;
+                    canvas.getContext('2d').drawImage(image, 0, 0, width, height);
+                    var dataUrl = canvas.toDataURL('image/jpeg');
+                    $.event.trigger({
+                        type: "imageResized",
+                        url: dataUrl
+                    });
+                }
+                image.src = readerEvent.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+    $(document).on("imageResized", function (event) {
+        if (event.url) {
+            app.chatImage = event.url;
+        }
+    });
 </script>
 
 

@@ -24,6 +24,9 @@ class ChatResource extends JsonResource
             'total_deslikes' => $this->total_desilkes,
             'is_sender' => $this->user->id == auth()->user()->id ? true : false,
             'is_reacted' => $this->is_reacted,
+            'images' => $this->images,
+            'asset_limit' => $this->asset_limit,
+            'has_asset' => $this->has_asset,
         ];
     }
 }

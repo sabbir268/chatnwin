@@ -252,7 +252,7 @@
                     <p class="m-0 p-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis provident unde
                         dicta. Vel rem odio minima nemo adipisci, officiis cupiditate!</p>
                 </div>
-                <div class="message-image" style="    height: 82px;width: 70px;margin-left: 32px;">
+                <div class="message-image" style="height: 82px;width: 70px;margin-left: 32px;">
                     <div class="w-100">
                         <img src="{{ asset('assets/frontend/images/chat/thumb-v-v-1.jpg') }}" class="w-100" alt="img">
                     </div>
