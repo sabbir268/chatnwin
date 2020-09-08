@@ -4129,11 +4129,11 @@ input[type=submit].btn-block, input[type=reset].btn-block, input[type=button].bt
 }
 
 .navbar-nav {
-  display: -webkit-box;
+  display: block;
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  flex-direction: column;
+  flex-direction: revert;
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
