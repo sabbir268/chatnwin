@@ -250,6 +250,9 @@
                         $('#email_error strong').css('display', 'none');
                         if($password != ''){
                             $('#password_error strong').css('display', 'none');
+                            if($('#password').val().length >= 8){
+                                $('#password_error strong').css('display', 'none');
+
                         $('.regisreation-first-setp').fadeOut('200');
                         $('.regisreation-second-step').fadeIn('200');
                         $('#backRegitration1').hide();
