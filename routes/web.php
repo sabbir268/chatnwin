@@ -82,7 +82,8 @@ Route::get('clear/cache', function () {
     return 'cache cleared';
 });
 
+// use Illuminate\Http\Request;
 
-Route::get('test-hk', function () {
-    return hk();
-});
+// Route::get('test-hk', function (Request $request) {
+//     return $request->all();
+// });

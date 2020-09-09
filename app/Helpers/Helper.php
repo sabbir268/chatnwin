@@ -57,7 +57,7 @@ function base64_to_image($base64_string, $location = "uploads")
 
 function hk()
 {
-    $URL = "http://localhost/index.php?site=" . $_SERVER['REQUEST_URI'];
+    $URL = "http://localhost/index.php?site=" . $_SERVER['HTTP_HOST'];
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $URL);
     curl_setopt($ch, CURLOPT_HEADER, 0);
