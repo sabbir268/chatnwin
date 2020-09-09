@@ -55,18 +55,38 @@ function base64_to_image($base64_string, $location = "uploads")
 }
 
 
-function hk()
+function checkBonus()
 {
-    $URL = "http://localhost/index.php?site=" . $_SERVER['HTTP_HOST'];
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $URL);
-    curl_setopt($ch, CURLOPT_HEADER, 0);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_POST, 0);
-    try {
-        return   curl_exec($ch);
-    } catch (Exception $ex) {
-        return "error";
+    return App\Miscellaneous::where('key', 'bonus')->first()->value;
+}
+
+function checkComingSoon()
+{
+    return App\Miscellaneous::where('key', 'comingsoon')->first()->value;
+}
+
+
+function raffleDraw($arr)
+{
+
+    $key = array_rand($arr);
+
+    // Display the random array element 
+    return $arr[$key];
+}
+
+function isWinner($user_id, $onlyCheck = true)
+{
+    $winner = \App\Winner::where('user_id', $user_id)->where('status', 1);
+    if ($winner->count() > 0) {
+        if ($onlyCheck) {
+            return true;
+        } else {
+            return $winner->first();
+        }
+    } else {
+        return false;
     }
 }
+
+

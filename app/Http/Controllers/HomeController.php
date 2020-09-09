@@ -12,10 +12,16 @@ class HomeController extends Controller
      *
      * @return void
      */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        if (auth()->check()) {
+            if (auth()->user()->role == 1) {
+                if (isWinner(auth()->user()->id)) {
+                    return redirect('/result');
+                }
+            }
+        }
+    }
 
     /**
      * Show the application dashboard.
@@ -24,9 +30,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $chatrooms = ChatRoom::where('status' , 1)->orderBy('id' , 'desc')->paginate(9);
+        $chatrooms = ChatRoom::where('status', 1)->orderBy('id', 'desc')->paginate(9);
         return view('frontend.index', compact('chatrooms'));
     }
-
-    
 }

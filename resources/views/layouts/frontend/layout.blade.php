@@ -64,9 +64,11 @@
             overflow: visible;
             background: #FBFBFB url('assets/frontend/images/loader/beginning_animation.gif') no-repeat center center;
         }
+
         li.nav-item {
             margin-left: 17px;
         }
+
     </style>
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -76,24 +78,26 @@
     style="@if(Request::path() == 'privacy-policy' || Request::path() == 'terms-services') background: #E5E5E5 @endif">
     <header class="hedar-area">
         <div class="container-fluid">
-            <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-between @if(Request::path() == 'privacy-policy' || Request::path() == 'terms-services') @else bg-white  @endif fixed-top">
+            <nav
+                class="navbar navbar-expand-lg navbar-light d-flex justify-content-between @if(Request::path() == 'privacy-policy' || Request::path() == 'terms-services') @else bg-white  @endif fixed-top">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{ asset('assets/frontend/images/logo/logo.png') }}" alt="logo" style="width:80%;">
                 </a>
-                 <div class="menu-item">
+                <div class="menu-item">
                     <ul class="navbar-nav ml-auto">
                         @yield('menu-item')
                         @if(Auth::check())
                         <li class="nav-item">
-                        <a class="nav-link logout-button"
-                            onclick="event.preventDefault(); document.getElementById('frm-logout').submit();"
-                            href="javascript:void(0)">
-                            <span class="menu-title">Logout</span>
-                            <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                {{ csrf_field() }}
-                            </form>
+                            <a class="nav-link logout-button"
+                                onclick="event.preventDefault(); document.getElementById('frm-logout').submit();"
+                                href="javascript:void(0)">
+                                <span class="menu-title">Logout</span>
+                                <form id="frm-logout" action="{{ route('logout') }}" method="POST"
+                                    style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
 
-                        </a>
+                            </a>
                         </li>
                         @endif
                     </ul>

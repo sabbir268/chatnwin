@@ -19,9 +19,7 @@ Route::get('about', function () {
     return view('frontend.about');
 });
 
-Route::get('result', function () {
-    return view('frontend.result');
-});
+
 Route::get('privacy-policy', function () {
     return view('frontend.privacy');
 });
@@ -46,6 +44,8 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin',], function
     Route::resource('chatroom', 'Admin\ChatRoomController');
     Route::post('chatroom/delete', 'Admin\ChatRoomController@destroy')->name('admin.chatroom.delete');
     Route::get('winners', 'Admin\ChatRoomController@winners')->name('winners');
+    Route::get('bonus-control', 'MiscellaneousController@bonusControl')->name('bonus.control');
+    Route::get('comingsoon-control', 'MiscellaneousController@comingSoon')->name('comingsoon.control');
 });
 
 
@@ -70,6 +70,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('single-chat', function () {
         return view('frontend.single-chat');
     });
+
+    Route::get('result', function () {
+        return view('frontend.result');
+    })->name('result');
 });
 
 
@@ -81,9 +85,3 @@ Route::get('clear/cache', function () {
     Artisan::call('config:cache');
     return 'cache cleared';
 });
-
-// use Illuminate\Http\Request;
-
-// Route::get('test-hk', function (Request $request) {
-//     return $request->all();
-// });

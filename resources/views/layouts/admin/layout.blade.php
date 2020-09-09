@@ -33,9 +33,9 @@
             color: #000;
         }
 
-        .bonus-switch {
+        /* .bonus-switch {
             margin-top: 200px;
-        }
+        } */
 
     </style>
     <style>
@@ -117,6 +117,7 @@
                     <a class="navbar-brand brand-logo-mini" href="{{ route('chatroom.create') }}">
                         <img src="{{ asset('assets/frontend/images/logo/logo.png') }}" alt="logo" style="width:auto">
                     </a>
+                    <h4 style="font-size: 1.4rem;padding-left: 10px;">Welcome , CCO</h4>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-stretch">
                 <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -167,13 +168,26 @@
                 </ul>
 
 
-                <div class="bonus-switch d-flex justify-content-start"
-                    style="padding:0.75rem 1.875rem 0.75rem 1.875rem">
-                    <label style="font-size: 20px;font-weight: bold;margin-right: 10px;">Bonus</label>
-                    <label class="switch">
-                        <input type="checkbox" checked>
-                        <span class="slider round"></span>
-                    </label>
+                <div class="setting-control" style="position: absolute;bottom: 0;">
+                    <div class="bonus-switch d-flex justify-content-start"
+                        style="padding:0.75rem 1.875rem 0.75rem 1.875rem">
+                        <label style="font-size: 20px;font-weight: bold;margin-right: 10px;text-align: center;">Cooming
+                            <br>
+                            Soon</label>
+                        <label class="switch" style="margin-left: 11px;">
+                            <input type="checkbox" id="comingsoon" {{checkComingSoon() == 1 ? 'checked' : '' }}>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="bonus-switch d-flex justify-content-start"
+                        style="padding:0.75rem 1.875rem 0.75rem 1.875rem">
+                        <label
+                            style="font-size: 20px;font-weight: bold;margin-right: 10px;text-align: center;">Bonus</label>
+                        <label class="switch" style="margin-left: 30px;">
+                            <input type="checkbox" id="bonus" {{checkBonus() == 1 ? 'checked' : '' }}>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
                 </div>
             </nav>
             <!-- partial -->
@@ -182,14 +196,14 @@
 
                 @yield('content')
 
-                <footer class="footer">
+                {{-- <footer class="footer">
                     <div class="d-sm-flex justify-content-center justify-content-sm-between">
                         <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">
                             Having Issues? Please contact <a
                                 href="mailto:Lesan@tridedesigns.com">Lesan@tridedesigns.com</a> </span>
 
                     </div>
-                </footer>
+                </footer> --}}
             </div>
         </div>
         <!-- page-body-wrapper ends -->
@@ -203,22 +217,29 @@
     <script src="{{asset('assets/admin/js/settings.js')}}"></script>
     <script src="{{asset('assets/admin/js/dashboard.js')}}"></script>
     <script src="{{asset('assets/admin/js/dropify.js')}}"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 
-    <script src="{{asset('assets/admin/vendors/lightgallery/js/lightgallery-all.min.js')}}"></script>
-    <script src="{{asset('assets/admin/js/light-gallery.js')}}"></script>
-
-    <script src="{{asset('assets/admin/vendors/summernote/dist/summernote-bs4.min.js')}}"></script>
-    <link rel="stylesheet" href="{{asset('assets/admin/vendors/summernote/dist/summernote-bs4.css')}}">
     <script>
         $(document).ready(function () {
-        $('select.select2').select2();
-        $('table.dataTable').DataTable({
-            "order": [[0, "desc"]]
+            $('#comingsoon').change(function(){
+                $.ajax({
+                        url: "{{route('comingsoon.control')}}", 
+                        success: function(result){
+                        console.log(result)
+                    }
+                });
+            });
+
+            $('#bonus').change(function(){
+                $.ajax({
+                        url: "{{route('bonus.control')}}", 
+                        success: function(result){
+                        console.log(result)
+                    }
+                });
+            });
         });
-    });
     </script>
     @yield('script')
 </body>

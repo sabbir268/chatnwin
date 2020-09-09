@@ -34,34 +34,38 @@
         color: #fff;
         cursor: pointer;
     }
+
     .admin-chat-image {
         position: relative;
     }
+
     .chatroom-edit-area {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: #004eff7a;
-    height: 100%;
-    opacity: 0  ;
-    transition: .25s;
-    text-align: center
-}
-.chatroom-edit-area i {
-    position: absolute;
-    top: 43%;
-    background: #a33cd4;
-    padding: 10px;
-    color: #fff;
-    height: 40px;
-    width: 40px;
-    text-align: center;
-    border-radius: 50%;
-}
-.admin-chat-image:hover > .chatroom-edit-area {
-    opacity: 1;
-}
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: #004eff7a;
+        height: 100%;
+        opacity: 0;
+        transition: .25s;
+        text-align: center
+    }
+
+    .chatroom-edit-area i {
+        position: relative;
+        top: 43%;
+        background: #a33cd4;
+        padding: 10px;
+        color: #fff;
+        height: 40px;
+        width: 40px;
+        text-align: center;
+        border-radius: 50%;
+    }
+
+    .admin-chat-image:hover>.chatroom-edit-area {
+        opacity: 1;
+    }
 
 </style>
 @section('content')
@@ -79,17 +83,17 @@
                     <div class="col-md-4">
                         <div class="admin-char_room-single" style="width: 100%">
                             {{-- <a href="#"> --}}
-                                <div class="admin-chat-image">
-                                    <img src="{{ asset('storage/'.$chatroom->photo) }}" alt="image" style="width: 100%">
-                                    <div class="chatroom-edit-area">
-                                        <a href="{{ route('chatroom.edit',$chatroom->id) }}"><i class="fas fa-edit"></i></a>
-                                    </div>
+                            <div class="admin-chat-image">
+                                <img src="{{ asset('storage/'.$chatroom->photo) }}" alt="image" style="width: 100%">
+                                <div class="chatroom-edit-area">
+                                    <a href="{{ route('chatroom.edit',$chatroom->id) }}"><i class="fas fa-edit"></i></a>
                                 </div>
-                                <h4 class="text-center mt-3">{{ $chatroom->name }}</h4>
+                            </div>
+                            <h4 class="text-center mt-3">{{ $chatroom->name }}</h4>
                             {{-- </a> --}}
                             <i class="fas fa-minus chat_cross_btn" id="delete_chatroom"
                                 data-id="{{ $chatroom->id }}"></i>
-                            
+
                         </div>
                     </div>
                     @endforeach

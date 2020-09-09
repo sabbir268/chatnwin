@@ -10,6 +10,11 @@ class ChatRoom extends Model
 
     public function chat()
     {
-        return $this->hasMany('App/Chat');
+        return $this->hasMany('App\Chat');
+    }
+
+    public function joinChatRoom()
+    {
+        return $this->hasMany('App\JoinChatRoom');
     }
 }
