@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePrivateChatsTable extends Migration
+class CreatePrivateMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreatePrivateChatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('private_chats', function (Blueprint $table) {
+        Schema::create('private_messages', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('sender_id');
-            $table->unsignedBigInteger('reciver_id');
-            $table->tinyInteger('is_accept')->default(0);
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('private_chat_id');
+            $table->text('message');
+            $table->enum('react', ['like', 'dislike'])->nullable();
+            $table->text('image')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreatePrivateChatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('private_chats');
+        Schema::dropIfExists('private_messages');
     }
 }

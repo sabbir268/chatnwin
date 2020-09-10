@@ -3,83 +3,94 @@
 namespace App\Http\Controllers;
 
 use App\PrivateChat;
+use App\PrivateMessage;
+use App\User;
 use Illuminate\Http\Request;
 
 class PrivateChatController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function startChat($username)
     {
-        //
+        $reciverId = User::whereUsername($username)->first();
+        return view('frontend.single-chat', compact('reciverId'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function initChat(Request $request)
     {
-        //
+        if ($request->image == '') {
+            $data = $request->validate([
+                'message' => 'required',
+                'reciver_id' => 'required',
+            ]);
+        } else {
+            $data = $request->validate([
+                'reciver_id' => 'required',
+                'message' => 'nullable',
+            ]);
+
+
+            $image = base64_to_image($request->image);
+        }
+
+
+        $privateChat = PrivateChat::create([
+            'sender_id' => auth()->user()->id,
+            'reciver_id' => $request->reciver_id,
+        ]);
+
+        if ($privateChat) {
+            PrivateMessage::create([
+                'user_id' => $privateChat->sender_id,
+                'private_chat_id' => $privateChat->id,
+                'message' => $request->message,
+                'image' => $image ? $image : null,
+            ]);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function message(Request $request)
     {
-        //
+        if ($request->image == '') {
+            $data = $request->validate([
+                'message' => 'required',
+                'private_chat_id' => 'required',
+            ]);
+        } else {
+            $data = $request->validate([
+                'private_chat_id' => 'required',
+                'message' => 'nullable',
+            ]);
+
+
+            $data['image'] = base64_to_image($request->image);
+        }
+
+        $data['user_id'] = auth()->user()->id;
+
+        $pchat = PrivateChat::find($request->private_chat_id);
+        if ($pchat->is_accept == 0) {
+            if ($pchat->reciver_id == $data['user_id']) {
+                $pchat->is_accept = 1;
+                $pchat->save();
+            }
+        }
+
+        if ($pm = PrivateMessage::create($data)) {
+            return $pm;
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\PrivateChat  $privateChat
-     * @return \Illuminate\Http\Response
-     */
-    public function show(PrivateChat $privateChat)
+    public function like($id)
     {
-        //
+        $privateMessage = PrivateMessage::find($id);
+        $privateMessage->react = 'like';
+        $privateMessage->save();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\PrivateChat  $privateChat
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(PrivateChat $privateChat)
+    public function unlike($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\PrivateChat  $privateChat
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, PrivateChat $privateChat)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\PrivateChat  $privateChat
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(PrivateChat $privateChat)
-    {
-        //
+        $privateMessage = PrivateMessage::find($id);
+        $privateMessage->react = 'unlike';
+        $privateMessage->save();
     }
 }
