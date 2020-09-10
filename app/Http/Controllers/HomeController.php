@@ -25,9 +25,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        Session::flash('first_time', 'first time visit!'); 
+      
 
         $chatrooms = ChatRoom::where('status', 1)->orderBy('id', 'desc')->paginate(9);
+        Session::flash('first_time', 'first time visit!'); 
         return view('frontend.index', compact('chatrooms'));
     }
 }

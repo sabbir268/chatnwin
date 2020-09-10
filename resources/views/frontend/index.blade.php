@@ -27,7 +27,7 @@
 <div class="preloader" id="preloaders"></div> 
 @endif
 <div class="row m-0 p-0">
-
+  
 
   <div class="col-md-10 col-lg-10 offset-md-1 offset-lg-1">
     <h1 class="mb-5 font-weight-bold">Choose a chat room about an item you have or want to have </h1>

@@ -304,7 +304,7 @@ h1.chatroom-member-single i {
 }
 
 .message-read-single {
-    padding: 0px 10px;
+    padding: 5px 10px;
     width: 100%;
     text-align: left;
     overflow: hidden;
@@ -401,9 +401,12 @@ h1.chatroom-member-single i {
 /* responsive css  */
 
 @media only screen and (max-width: 600px) {
+    .main-area {
+        margin-top: 90px !important;
+    }
     .message-read-single {
         width: 90%;
-        padding: 0;
+        padding: 2px 0;
     }
     .message-read-single-sender {
         width: 80%;
@@ -441,4 +444,5 @@ h1.chatroom-member-single i {
     .result-form {
         padding: 0px;
     }
+  
 }

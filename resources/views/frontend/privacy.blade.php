@@ -1,7 +1,6 @@
 @extends('layouts.frontend.layout')
 @section('header')
 <title>Sneakly</title>
-<style>
     <style>
     .terms-condition-area {
     padding: 30px 40px;
@@ -21,7 +20,12 @@
     font-weight: bold !important;
     text-decoration: none
 }
-</style>
+ol, ul, dl {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    /* margin: 0; */
+    padding: 0 19px;
+}
 </style>
 @endsection
 @section('menu-item')

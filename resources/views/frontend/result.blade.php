@@ -98,12 +98,28 @@
     </div>
 
 </div>
-{{-- @php
-isWinner('us',false)->id;
-@endphp --}}
+@php
+  $winer_val = isWinner(auth()->user()->id,false);
+@endphp
+<input type="hidden" value="{{ $winer_val->id }}" id="winner_user_id">
 @endsection
 
 
 @section('script')
-
+    <script>
+         $(document).ready(function(){
+            $(document).on('click', '.size', function(){
+                var value = parseInt($(this).text());
+                var id = $('#winner_user_id').val();
+                $.post('{{ route('winner.value_udpate') }}', {_token:'{{ csrf_token() }}', value:value,id:id}, function(data){
+                
+                  if(data == 'yes'){
+                      alert('Your size picked successfull')
+                  }else {
+                      alert('Failed to pick size, please try again');
+                  }
+            });
+            });
+        });
+    </script>
 @endsection

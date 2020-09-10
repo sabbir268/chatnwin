@@ -83,9 +83,17 @@ Route::group(['middleware' => 'auth', 'winnercheck'], function () {
 
     /** winner */
     Route::get('result', function () {
-        return view('frontend.result');
+        if (isWinner(auth()->user()->id)) {
+            return view('frontend.result');
+        } else {
+            return redirect('/');
+        }
     })->name('result');
+
+    Route::post('winner/value_udpate', 'UserController@value_update')->name('winner.value_udpate');
 });
+
+
 
 
 
@@ -95,4 +103,17 @@ Route::get('clear/cache', function () {
     Artisan::call('view:clear');
     Artisan::call('config:cache');
     return 'cache cleared';
+});
+
+Route::get('winner/make', function () {
+    Artisan::call('winners:make');
+    return 'winner cleared';
+});
+Route::get('storage/link', function () {
+    Artisan::call('storeage:link');
+    return 'Storage link';
+});
+Route::get('storage/link', function () {
+    Artisan::call('db:seed');
+    return 'Database seed successfull';
 });

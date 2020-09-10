@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Winner;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +52,20 @@ class UserController extends Controller
             return redirect()->back()->with('success', 'Account information update successfully !');
         }else{
             return redirect()->back()->with('error', 'Failed to update account information, please try again');
+        }
+    }
+
+    public function value_update(Request $request)
+    {
+        $id = $request->id;
+
+        $winner = Winner::where('user_id', $id)->first();
+        $winner->size = $request->value;
+
+        if($winner->save()){
+            return "yes";
+        }else {
+            return "no";
         }
     }
 }
