@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\ChatRoom;
+// use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+use Session;
+
+session_start();
 
 class HomeController extends Controller
 {
@@ -21,6 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        Session::flash('first_time', 'first time visit!'); 
+
         $chatrooms = ChatRoom::where('status', 1)->orderBy('id', 'desc')->paginate(9);
         return view('frontend.index', compact('chatrooms'));
     }

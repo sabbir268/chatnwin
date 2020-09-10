@@ -387,7 +387,7 @@ h1.chatroom-member-single i {
 
 .terms-condition-area {
     background: #ffffff;
-    height: 75vh;
+    min-height: 75vh;
     margin-top: 20px;
     margin-bottom: 30px;
 }
