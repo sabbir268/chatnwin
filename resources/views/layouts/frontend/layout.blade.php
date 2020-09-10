@@ -12,14 +12,7 @@
     @yield('header')
     <link rel="icon" href="{{ asset('assets/frontend/images/favicon.png') }}" type="image/gif" sizes="16x16">
     <style>
-        #loader {
-            position: fixed;
-            width: 100%;
-            height: 100vh;
-            z-index: 1;
-            overflow: visible;
-            background: #FBFBFB url('assets/frontend/images/loader/beginning_animation.gif') no-repeat center center;
-        }
+     
 
         .select2-container--default .select2-selection--single {
             border: 1px solid #CED4DA;
@@ -35,13 +28,15 @@
             line-height: 33px !important;
         }
 
-        .loader {
+        .preloader {
             position: fixed;
+            left: 0px;
+            top: 0px;
             width: 100%;
-            height: 100vh;
-            z-index: 1;
-            overflow: visible;
-            background: #FBFBFB url('assets/frontend/images/loader/beginning_animation.gif') no-repeat center center;
+            height: 100%;
+            z-index: 9999;
+            background: url('assets/frontend/images/loader/beginning_animation.gif') 50% 50% no-repeat rgb(255, 255, 255);
+            opacity: 1;
         }
 
         .select2-container--default .select2-selection--single {
@@ -74,14 +69,14 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
-<body
-    style="@if(Request::path() == 'privacy-policy' || Request::path() == 'terms-services') background: #E5E5E5 @endif">
+<body style="@if(Request::path() == 'privacy-policy' || Request::path() == 'terms-services') background: #E5E5E5 @endif">
+   
     <header class="hedar-area">
         <div class="container-fluid">
             <nav
                 class="navbar navbar-expand-lg navbar-light d-flex justify-content-between @if(Request::path() == 'privacy-policy' || Request::path() == 'terms-services') @else bg-white  @endif fixed-top">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{ asset('assets/frontend/images/logo/logo.png') }}" alt="logo" style="width:80%;">
+                    <img src="{{ asset('assets/frontend/images/logo/logo______.png') }}" alt="logo" style="width:80%;">
                 </a>
                 <div class="menu-item">
                     <ul class="navbar-nav ml-auto">
@@ -107,7 +102,7 @@
     </header>
 
     @if(auth()->check())
-    @if (!request()->is('account/*')))
+    @if (!request()->is('account/*'))
     <div class="modal fadeIn" id="welcomModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content rounded-0">
@@ -137,24 +132,24 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="{{ asset('assets/frontend/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script> --}}
     <script src="{{ asset('assets/frontend/js/main.js') }}"></script>
 
 
 
 
+<script>
+    
+    window.onload = function () { 
+        setTimeout(function(){ 
+            $(".preloader").fadeOut();
+            // alert('yes');
+            }, 3000);
+        // $("#preloaders").fadeOut(1000);
+}
+</script>
 
 
-    {{-- document.addEventListener("DOMContentLoaded", function() {
-    loader = document.getElementById('loader');
-    loadNow(2.3);
-    });
-     --}}
-    <script>
-        $(document).ready(function() {
-            $('.select2').select2();
-        });
-    </script>
 
     @if (auth()->check())
     @if (!auth()->user()->address)

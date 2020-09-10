@@ -23,6 +23,9 @@
 @endif
 @endsection
 @section('content')
+@if(Session::has('first_time'))
+<div class="preloader" id="preloaders"></div> 
+@endif
 <div class="row m-0 p-0">
 
 
