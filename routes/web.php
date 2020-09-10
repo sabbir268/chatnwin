@@ -34,6 +34,9 @@ Route::get('coming-soon', function () {
 Route::get('terms-services', function () {
     return view('frontend.terms_services');
 });
+Route::get('coming-soon', function () {
+    return view('frontend.comming_soon');
+});
 Route::get('registration', function () {
     $user = new \App\User;
     return view('frontend.registration', [
