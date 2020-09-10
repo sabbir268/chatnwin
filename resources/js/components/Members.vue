@@ -7,7 +7,10 @@
           style="text-decoration:none"
           :title="member.username"
         >
-          <h1 class="chatroom-member-single" :style="`background: ${getRandomColor()}`">
+          <h1
+            class="chatroom-member-single"
+            :style="`background: ${member.user_bg ?member.user_bg: '#000'}`"
+          >
             <span style="text-transform:uppercase">{{member.username.charAt(0)}}</span>
             <i
               class="fa fa-circle"
@@ -59,16 +62,7 @@ export default {
     };
   },
 
-  methods: {
-    getRandomColor() {
-      var letters = "0123456789ABCDEF";
-      var color = "#";
-      for (var i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
-      return color;
-    },
-  },
+  methods: {},
 
   created() {
     axios.get(

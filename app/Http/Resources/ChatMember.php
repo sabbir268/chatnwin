@@ -17,6 +17,7 @@ class ChatMember extends JsonResource
         return [
             'username' => $this->username,
             'user_id' => $this->user_id,
+            'user_bg' => $this->user_bg,
             'unread_pm' => hasUnreadPrivate($this->user_id, auth()->user()->id),
         ];
     }

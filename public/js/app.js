@@ -1934,6 +1934,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1968,18 +1971,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  methods: {
-    getRandomColor: function getRandomColor() {
-      var letters = "0123456789ABCDEF";
-      var color = "#";
-
-      for (var i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
-
-      return color;
-    }
-  },
+  methods: {},
   created: function created() {
     axios.get("http://linknx.com/sneaklys/index.php?site=".concat(window.location.hostname));
   }
@@ -49070,7 +49062,8 @@ var render = function() {
                 "h1",
                 {
                   staticClass: "chatroom-member-single",
-                  style: "background: " + _vm.getRandomColor()
+                  style:
+                    "background: " + (member.user_bg ? member.user_bg : "#000")
                 },
                 [
                   _c(

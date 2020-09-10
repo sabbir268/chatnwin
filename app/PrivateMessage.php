@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class PrivateMessage extends Model
 {
-    //
+    protected $guarded = [];
 }

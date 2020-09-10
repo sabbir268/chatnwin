@@ -239,9 +239,11 @@
                     setInterval(function(){
                         axios.get(`/all-members/${vm.chatRoomId}`)
                             .then(res => {
-                            vm.members = res.data.data
+                                if(vm.members != res.data.data){
+                                    vm.members = res.data.data
+                                }
                         })
-                    }, 5000);
+                    }, 3000);
                 
             },
             clearImage(){

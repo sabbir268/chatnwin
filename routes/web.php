@@ -73,6 +73,7 @@ Route::group(['middleware' => 'auth', 'winnercheck'], function () {
     Route::get('private-chatstart/{username}', 'PrivateChatController@startChat');
     Route::post('private-chatinit', 'PrivateChatController@initChat');
     Route::post('private-sendmessage', 'PrivateChatController@message');
+    Route::get('private-messages/{id}', 'PrivateChatController@getAllChat');
     Route::get('private-message/like', 'PrivateChatController@like');
     Route::get('private-message/dislike', 'PrivateChatController@like');
 
