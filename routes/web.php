@@ -27,16 +27,14 @@ Route::get('coming-soon', function () {
     if (checkComingSoon() == 0) {
         return redirect('/');
     }
-    return view('frontend.coming');
+    return view('frontend.comming_soon');
 })->name('comingsoon');
 
 
 Route::get('terms-services', function () {
     return view('frontend.terms_services');
 });
-Route::get('coming-soon', function () {
-    return view('frontend.comming_soon');
-});
+
 Route::get('registration', function () {
     $user = new \App\User;
     return view('frontend.registration', [
