@@ -1928,6 +1928,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -49051,23 +49057,37 @@ var render = function() {
       return _c("slide", { key: i }, [
         _c("div", { staticClass: "item" }, [
           _c(
-            "h1",
+            "a",
             {
-              staticClass: "chatroom-member-single",
-              style: "background: " + _vm.getRandomColor()
+              staticStyle: { "text-decoration": "none" },
+              attrs: {
+                href: "/private-chatstart/" + member.username,
+                title: member.username
+              }
             },
             [
-              _c("span", { staticStyle: { "text-transform": "uppercase" } }, [
-                _vm._v(_vm._s(member.username.charAt(0)))
-              ]),
-              _vm._v(" "),
-              _c("i", {
-                staticClass: "fa fa-circle",
-                style:
-                  "color: " +
-                  (member.is_online == 1 ? "red" : "#ddd !important"),
-                attrs: { "aria-hidden": "true" }
-              })
+              _c(
+                "h1",
+                {
+                  staticClass: "chatroom-member-single",
+                  style: "background: " + _vm.getRandomColor()
+                },
+                [
+                  _c(
+                    "span",
+                    { staticStyle: { "text-transform": "uppercase" } },
+                    [_vm._v(_vm._s(member.username.charAt(0)))]
+                  ),
+                  _vm._v(" "),
+                  _c("i", {
+                    staticClass: "fa fa-circle",
+                    style:
+                      "color: " +
+                      (member.unread_pm ? "red" : "#ddd !important"),
+                    attrs: { "aria-hidden": "true" }
+                  })
+                ]
+              )
             ]
           )
         ])
@@ -61430,7 +61450,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\personal\chatnwin\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\chatnwin\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

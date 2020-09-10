@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\ChatRoom;
+use App\Winner;
 use App\Http\Controllers\Controller;
 use App\JoinChatRoom;
 use Illuminate\Http\Request;
@@ -126,6 +127,6 @@ class ChatRoomController extends Controller
         // $winners = Winner::whereBetween('created_at', [$start_week, $end_week])->where('size', '!=', '')->orWhereNotNull('size')->get();
 
         $winners = Winner::where('size', '!=', '')->orWhereNotNull('size')->orderBy('id', 'DESC')->get();
-        return view('admin.winners', 'winners');
+        return view('admin.winners', compact('winners'));
     }
 }

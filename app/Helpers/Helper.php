@@ -87,3 +87,9 @@ function isWinner($user_id, $onlyCheck = true)
 }
 
 
+function hasUnreadPrivate($senderId, $reciverId)
+{
+    $privateChat = \App\PrivateChat::where('sender_id', $senderId)->where('reciver_id', $reciverId)->where('is_accept', 0)->first();
+
+    return $privateChat ? true : false;
+}

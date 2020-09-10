@@ -137,12 +137,6 @@
             chatImage: '',
             assetLimit: 0,
             members: [],
-            checkmm: [],
-
-            hooperSettings: {
-                itemsToShow: 2,
-                centerMode: true
-            },
             api_token: '{{auth()->user()->api_token}}'
         },
 
@@ -237,10 +231,18 @@
             },
 
             getAllMember(){
-                axios.get(`/all-members/${this.chatRoomId}`)
+                    axios.get(`/all-members/${this.chatRoomId}`)
                     .then(res => {
-                        this.members = res.data
-                    })
+                        this.members = res.data.data
+                    });
+                    let vm = this
+                    setInterval(function(){
+                        axios.get(`/all-members/${vm.chatRoomId}`)
+                            .then(res => {
+                            vm.members = res.data.data
+                        })
+                    }, 5000);
+                
             },
             clearImage(){
                 this.chatImage = "";

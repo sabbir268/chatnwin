@@ -11,8 +11,6 @@
 |
 */
 
-
-
 Route::get('/', 'HomeController@index')->middleware(['winnercheck', 'comingsoon']);
 Route::get('about', function () {
     return view('frontend.about');
@@ -71,14 +69,19 @@ Route::group(['middleware' => 'auth', 'winnercheck'], function () {
 
     Route::get('all-members/{chat_room_id}', 'JoinChatRoomController@getAllMembers');
 
+    /** private chat */
+    Route::get('private-chatstart/{username}', 'PrivateChatController@startChat');
+    Route::post('private-chatinit', 'PrivateChatController@initChat');
+    Route::post('private-sendmessage', 'PrivateChatController@message');
+    Route::get('private-message/like', 'PrivateChatController@like');
+    Route::get('private-message/dislike', 'PrivateChatController@like');
+
     /**account */
     Route::get('account/{usernanme}', 'UserController@account');
     Route::post('account/update/{id}', 'UserController@update_account');
 
-    Route::get('single-chat', function () {
-        return view('frontend.single-chat');
-    });
 
+    /** winner */
     Route::get('result', function () {
         return view('frontend.result');
     })->name('result');

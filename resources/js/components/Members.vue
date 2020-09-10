@@ -2,14 +2,20 @@
   <hooper :settings="hooperSettings">
     <slide v-for="(member,i) in members" :key="i">
       <div class="item">
-        <h1 class="chatroom-member-single" :style="`background: ${getRandomColor()}`">
-          <span style="text-transform:uppercase">{{member.username.charAt(0)}}</span>
-          <i
-            class="fa fa-circle"
-            :style="`color: ${member.is_online == 1 ? 'red' : '#ddd !important'}`"
-            aria-hidden="true"
-          ></i>
-        </h1>
+        <a
+          :href="`/private-chatstart/${member.username}`"
+          style="text-decoration:none"
+          :title="member.username"
+        >
+          <h1 class="chatroom-member-single" :style="`background: ${getRandomColor()}`">
+            <span style="text-transform:uppercase">{{member.username.charAt(0)}}</span>
+            <i
+              class="fa fa-circle"
+              :style="`color: ${member.unread_pm ? 'red' : '#ddd !important'}`"
+              aria-hidden="true"
+            ></i>
+          </h1>
+        </a>
       </div>
     </slide>
   </hooper>

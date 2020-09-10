@@ -28,8 +28,8 @@
             <div class="col-12">
                 @foreach ($winners as $winner)
                 <div class="winners-single">
-                    <h4>Username</h4>
-                    <h5>Chatroom name, Item size, Address listed</h5>
+                    <h4>{{$winner->user->username}}</h4>
+                    <h5> <b>Chatroom:</b> {{$winner->chatRoom->name}},<b>Size:</b> {{$winner->size}}, <b>Address:</b>{{$winner->user->address}}</h5>
                 </div>
                 @endforeach
             </div>
