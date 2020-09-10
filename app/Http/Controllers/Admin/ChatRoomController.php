@@ -118,6 +118,14 @@ class ChatRoomController extends Controller
 
     public function winners()
     {
-        return view('admin.winners');
+        // $previous_week = strtotime("-1 week +1 day");
+        // $start_week = strtotime("last sunday midnight", $previous_week);
+        // $end_week = strtotime("next saturday", $start_week);
+        // $start_week = date("Y-m-d", $start_week);
+        // $end_week = date("Y-m-d", $end_week);
+        // $winners = Winner::whereBetween('created_at', [$start_week, $end_week])->where('size', '!=', '')->orWhereNotNull('size')->get();
+
+        $winners = Winner::where('size', '!=', '')->orWhereNotNull('size')->orderBy('id', 'DESC')->get();
+        return view('admin.winners', 'winners');
     }
 }

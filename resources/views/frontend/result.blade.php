@@ -98,6 +98,9 @@
     </div>
 
 </div>
+{{-- @php
+isWinner('us',false)->id;
+@endphp --}}
 @endsection
 
 

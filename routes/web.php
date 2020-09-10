@@ -49,7 +49,7 @@ Auth::routes();
 //routes for admin
 // Route::get('/admin/chatroom/create', 'Admin\ChatRoomController@index')->name('admin.home')->middleware('auth');
 
-Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin',], function () {
+Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function () {
     Route::resource('chatroom', 'Admin\ChatRoomController');
     Route::post('chatroom/delete', 'Admin\ChatRoomController@destroy')->name('admin.chatroom.delete');
     Route::get('winners', 'Admin\ChatRoomController@winners')->name('winners');
