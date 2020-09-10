@@ -68,10 +68,7 @@ function checkComingSoon()
 
 function raffleDraw($arr)
 {
-
     $key = array_rand($arr);
-
-    // Display the random array element 
     return $arr[$key];
 }
 

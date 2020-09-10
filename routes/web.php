@@ -11,10 +11,9 @@
 |
 */
 
-use App\Chat;
-use App\Events\ChatEvent;
 
-Route::get('/', 'HomeController@index');
+
+Route::get('/', 'HomeController@index')->middleware(['winnercheck', 'comingsoon']);
 Route::get('about', function () {
     return view('frontend.about');
 });
@@ -23,6 +22,15 @@ Route::get('about', function () {
 Route::get('privacy-policy', function () {
     return view('frontend.privacy');
 });
+
+Route::get('coming-soon', function () {
+    if (checkComingSoon() == 0) {
+        return redirect('/');
+    }
+    return view('frontend.coming');
+})->name('comingsoon');
+
+
 Route::get('terms-services', function () {
     return view('frontend.terms_services');
 });
@@ -51,7 +59,7 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin',], function
 
 Route::get('chatroom/{slug}', 'Admin\ChatRoomController@enterRoom')->name('chatroom');
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth', 'winnercheck'], function () {
     /**chat room and chat */
     Route::post('chat', 'ChatController@store');
     Route::get('chat/like/{chat_id}', 'ChatLikeController@like');

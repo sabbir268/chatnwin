@@ -12,16 +12,7 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        if (auth()->check()) {
-            if (auth()->user()->role == 1) {
-                if (isWinner(auth()->user()->id)) {
-                    return redirect('/result');
-                }
-            }
-        }
-    }
+  
 
     /**
      * Show the application dashboard.
