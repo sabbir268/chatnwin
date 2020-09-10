@@ -11,8 +11,29 @@ class PrivateChatController extends Controller
 {
     public function startChat($username)
     {
-        $reciverId = User::whereUsername($username)->first();
-        return view('frontend.single-chat', compact('reciverId'));
+        $reciverId = User::whereUsername($username)->first()->id;
+        $privateChatf = PrivateChat::where('reciver_id', $reciverId)->where('sender_id', auth()->user()->id);
+        if ($privateChatf->count() > 0) {
+            $privateChat = $privateChatf->first();
+        }
+
+        $privateChats = PrivateChat::where('reciver_id', auth()->user()->id)->where('sender_id', $reciverId);
+
+        if ($privateChats->count() > 0) {
+            $privateChat = $privateChats->first();
+        }
+
+        if (!$privateChat) {
+            $privateChat = '';
+        }
+
+
+        return view('frontend.single-chat', compact('reciverId', 'privateChat'));
+    }
+
+    public function getAllChat($id)
+    {
+        return PrivateMessage::where('private_chat_id', $id)->get();
     }
 
     public function initChat(Request $request)
@@ -39,12 +60,14 @@ class PrivateChatController extends Controller
         ]);
 
         if ($privateChat) {
-            PrivateMessage::create([
+            $pm =  PrivateMessage::create([
                 'user_id' => $privateChat->sender_id,
                 'private_chat_id' => $privateChat->id,
                 'message' => $request->message,
-                'image' => $image ? $image : null,
+                'image' => isset($image) ? $image : null,
             ]);
+
+            return $pm;
         }
     }
 

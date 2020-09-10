@@ -96,7 +96,8 @@ class ChatRoomController extends Controller
                         'chat_room_id' => $chatRoom->id,
                         'user_id' => auth()->user()->id,
                         'is_online' => 1,
-                        'type' => 1
+                        'type' => 1,
+                        'user_bg' => random_color(),
                     ]);
 
                     if ($join) {

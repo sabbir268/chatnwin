@@ -45,7 +45,7 @@
                 <div :class="`${message.user_id == userId ? 'message-read-single-sender' : 'message-read-single'}`">
                     <div class="message-info d-flex justify-content-between">
                         <h6 class="m-0 p-0">@{{message.username}}</h6>
-                        <div class="btn-group">
+                        <div class="btn-group invisible">
                             <button type="button" class="btn btn-default active " aria-haspopup="true"
                                 aria-expanded="false" style="background: #fff !important;padding:0;">
                                 <i class="fas fa-ellipsis-h"></i>
@@ -123,7 +123,7 @@
         el: '#chat-private',
         data:{
             messages: [],
-            privateChatId: '',
+            privateChatId: '{{$privateChat != "" ? $privateChat->id : ""}}',
             userId: '{{auth()->user()->id}}',
             reciverId: '{{$reciverId}}',
             chatText: '',
@@ -148,46 +148,58 @@
 
         methods:{
             sendMessage(){
-                if(this.privateChatId == ""){
-                    axios.post('/private-chatinit',{
+                let snurl = this.privateChatId == "" ? "/private-chatinit" : "/private-sendmessage";
+
+                // if(this.privateChatId == ""){
+                    axios.post(snurl,{
                         reciver_id: this.reciverId,
                         message: this.chatText,
                         image: this.chatImage,
+                        private_chat_id: this.privateChatId,
                     }).then(res => {
                         console.log(res)
                         this.chatText = ''
                         this.chatImage = ''
-                        this.messages.push(res.data.data);
-                        this.private_chat_id == '' ? this.private_chat_id = res.data.data.private_chat_id : ''
+                        this.messages.push(res.data);
+                        this.privateChatId == '' ? this.privateChatId = res.data.private_chat_id : ''
                         this.scrollToEnd();
                     }).catch(err => {
                         console.log(err)
                     })
-                }else{
-                    axios.post('/private-sendmessage',{
-                        reciver_id: this.reciverId,
-                        message: this.chatText,
-                        image: this.chatImage,
-                    }).then(res => {
-                        console.log(res)
-                        this.chatText = ''
-                        this.chatImage = ''
-                        this.messages.push(res.data.data);
-                        // this.assetLimit = res.data.data.asset_limit
-                        this.scrollToEnd();
-                    }).catch(err => {
-                        console.log(err)
-                    })
-                }
+                // }else{
+                //     axios.post('/private-sendmessage',{
+                //         reciver_id: this.reciverId,
+                //         message: this.chatText,
+                //         image: this.chatImage,
+                //     }).then(res => {
+                //         console.log(res)
+                //         this.chatText = ''
+                //         this.chatImage = ''
+                //         this.messages.push(res.data.data);
+                //         // this.assetLimit = res.data.data.asset_limit
+                //         this.scrollToEnd();
+                //     }).catch(err => {
+                //         console.log(err)
+                //     })
+                // }
             },
 
             getAllMessage(){
-                axios.get(`/chat/${this.chatRoomId}`)
-                    .then(res => {
-                        this.messages = res.data.data
-                    }).catch(err => {
-                        console.log(err)
-                    })
+                    let vm = this;
+                    axios.get(`/private-messages/${vm.privateChatId}`)
+                        .then(res => {
+                                vm.messages = res.data
+                        }).catch(err => {
+                                console.log(err)
+                        })
+                    setInterval(function(){
+                        axios.get(`/private-messages/${vm.privateChatId}`)
+                            .then(res => {
+                                vm.messages = res.data
+                            }).catch(err => {
+                                console.log(err)
+                            })
+                    }, 5000);
             },
 
             chatLike(chat){
