@@ -175,12 +175,7 @@
 
             this.getAllMessage();
             this.getAllMember();
-            // this.scrollToEnd();
         },
-
-        // mounted() {
-        //     this.scrollToEnd();
-        // },
 
         methods:{
             sendMessage(){
@@ -247,27 +242,6 @@
                         this.members = res.data
                     })
             },
-
-            listen() {
-                window.Echo.join('chat-channel.'+ this.chatRoomId)
-                    // .joining((user) => {
-                    //     axios.get(`/online/${this.chatRoomId}`);
-                    // })
-                    // .leaving((user) => {
-                    //     axios.get(`/offline/${this.chatRoomId}`);
-                    // })
-                    .listen('UserOnline', (e) => {
-                        console.log(e)
-                    })
-                    .listen('UserOffline', (e) => {
-                        console.log(e)
-                    });
-                },
-
-            // onFileChange(e) {
-            //     const file = e.target.files[0];
-            //     this.chatImage = file.;
-            // },
             clearImage(){
                 this.chatImage = "";
 

@@ -70,8 +70,7 @@ Route::group(['middleware' => 'auth', 'winnercheck'], function () {
     Route::get('chat/{chat_room_id}', 'ChatController@getAllByChatroom');
 
     Route::get('all-members/{chat_room_id}', 'JoinChatRoomController@getAllMembers');
-    Route::get('online/{chat_room_id}', 'JoinChatRoomController@makeOnline');
-    Route::get('offline/{chat_room_id}', 'JoinChatRoomController@makeOffline');
+
     /**account */
     Route::get('account/{usernanme}', 'UserController@account');
     Route::post('account/update/{id}', 'UserController@update_account');
