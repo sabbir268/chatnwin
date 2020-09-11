@@ -26,6 +26,11 @@ ol, ul, dl {
     /* margin: 0; */
     padding: 0 19px;
 }
+@media only screen and (max-width: 600px) {
+    h2, h3, h4, h5 {
+        font-size: 1rem !important;
+    }
+}
 </style>
 @endsection
 @section('menu-item')

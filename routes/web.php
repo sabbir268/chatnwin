@@ -108,7 +108,7 @@ Route::get('clear/cache', function () {
 
 Route::get('winner/make', function () {
     Artisan::call('winners:make');
-    return 'winner cleared';
+    return 'winner make';
 });
 Route::get('storage/link', function () {
     Artisan::call('storeage:link');

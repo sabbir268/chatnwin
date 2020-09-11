@@ -444,5 +444,19 @@ h1.chatroom-member-single i {
     .result-form {
         padding: 0px;
     }
+    .registration-header h6 {
+        font-size: 13px;
+        margin: 19px 0;
+    }
+    .registration-header h1 {
+        font-size: 45px !important;
+    }
+    #second-step h1 {
+        font-size: 22px !important;
+    }
+    .about-us-header {
+        margin-top: 114px;
+        margin-bottom: 62px;
+    }
   
 }
