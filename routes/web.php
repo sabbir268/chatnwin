@@ -111,10 +111,10 @@ Route::get('winner/make', function () {
     return 'winner make';
 });
 Route::get('storage/link', function () {
-    Artisan::call('storeage:link');
+    Artisan::call('storage:link');
     return 'Storage link';
 });
-Route::get('storage/link', function () {
+Route::get('db/seed', function () {
     Artisan::call('db:seed');
     return 'Database seed successfull';
 });
