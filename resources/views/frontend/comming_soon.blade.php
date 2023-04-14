@@ -71,6 +71,8 @@
             margin: 0 9px;
             border-radius: 10px;
             border: 2px solid #000000 !important;
+            padding: 22px;
+            text-align: center;
         }
 
         .code-form>button {
@@ -165,7 +167,8 @@
                                         <input type="text" class="form-control">
                                         <input type="text" class="form-control">
                                         <input type="text" class="form-control">
-                                        <button class="btn btn-primary" type="button">&nbsp;&nbsp; enter &nbsp;&nbsp;&nbsp;</button>
+                                        <button class="btn btn-primary" type="button">&nbsp;&nbsp; enter
+                                            &nbsp;&nbsp;&nbsp;</button>
                                     </div>
                                 </form>
                             </div>

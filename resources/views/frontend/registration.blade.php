@@ -41,7 +41,6 @@
     .StripeElement--webkit-autofill {
         background-color: #fefde5 !important;
     }
-
 </style>
 
 <script src="https://js.stripe.com/v3/"></script>
@@ -149,86 +148,41 @@
                                 </span>
                                 @enderror
                             </div>
-                            {{-- <div class="form-group">
-                                <label>Billing Zip Code</label>
-                                <input type="text" class="form-control rounded-0" name="zip_code"
-                                    value="{{ old('zip_code') }}">
-                            @error('zip_code')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div> --}}
-                        {{-- <div class="form-group">
-                                <label>Card Number</label>
-                                <input type="text" class="form-control rounded-0" name="card_number"
-                                    value="{{ old('card_number') }}">
-                        @error('card_number')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label>Expiration Date (MM/YY)</label>
-                        <input type="text" class="form-control rounded-0" name="expiration_date"
-                            value="{{ old('expiration_date') }}">
-                        @error('expiration_date')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label>Security Code (CVV)</label>
-                        <input type="text" class="form-control rounded-0" name="security_code"
-                            value="{{ old('security_code') }}">
-                        @error('security_code')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <p>By clicking the "Start Membership" button below, you agree to our <a
-                                href="{{ url('terms-services') }}">Terms
-                                of Use</a>, <a href="{{ url('privacy-policy') }}">Privacy Statement</a>, and
-                            that you are over 18. There
-                            is no need to cancel membership as there is no recurrent charges sent to your
-                            account. One time purchases Only. </p>
-                    </div> --}}
-                    <div class="form-group">
-                        <label for="card-element">
-                            Credit or debit card
-                        </label>
-                        <div id="card-element">
-                            <!-- A Stripe Element will be inserted here. -->
-                        </div>
 
-                        <div id="card-errors" style="display: none" class="alert alert-danger mt-3" role="alert">
+                            <div class="form-group">
+                                <label for="card-element">
+                                    Credit or debit card
+                                </label>
+                                <div id="card-element">
+                                    <!-- A Stripe Element will be inserted here. -->
+                                </div>
 
+                                <div id="card-errors" style="display: none" class="alert alert-danger mt-3"
+                                    role="alert">
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <p>By clicking the "Start Membership" button below, you agree to our <a
+                                        href="{{ url('terms-services') }}">Terms
+                                        of Use</a>, <a href="{{ url('privacy-policy') }}">Privacy Statement</a>, and
+                                    that you
+                                    are over 18. There
+                                    is no need to cancel membership as there is no recurrent charges sent to your
+                                    account. One time purchases Only. </p>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit"
+                                    class="border-sn btn btn-primary border-sn bg-sn rounded-0 btn-block pt-3 pb-3"
+                                    value="Enter Chat Room" style="background-color: #7b27a3;" id="card-button"
+                                    data-secret="{{ $intent->client_secret }}">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <p>By clicking the "Start Membership" button below, you agree to our <a
-                                href="{{ url('terms-services') }}">Terms
-                                of Use</a>, <a href="{{ url('privacy-policy') }}">Privacy Statement</a>, and that you
-                            are over 18. There
-                            is no need to cancel membership as there is no recurrent charges sent to your
-                            account. One time purchases Only. </p>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit"
-                            class="border-sn btn btn-primary border-sn bg-sn rounded-0 btn-block pt-3 pb-3"
-                            value="Enter Chat Room" style="background-color: #7b27a3;" id="card-button"
-                            data-secret="{{ $intent->client_secret }}">
                     </div>
                 </div>
             </div>
+        </form>
     </div>
-</div>
-</form>
-</div>
 
 </div>
 @endsection

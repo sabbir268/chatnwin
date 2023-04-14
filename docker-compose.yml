@@ -1,0 +1,68 @@
+version: '3'
+services:
+
+  #PHP Service
+  chatwin:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: php:7.2-fpm
+    container_name: chatwin
+    restart: always
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+      - ./docker_conf/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  
+  #    networks:
+  #      - oe-network
+
+
+  # chatwin_db:
+  #   image: mysql:5.7
+  #   container_name: chatwin_db
+  #   restart: unless-stopped
+  #   tty: true
+  #   ports:
+  #     - "33061:3306"
+  #   environment:
+  #     MYSQL_DATABASE: chatwin
+  #     MYSQL_USER: chatwin
+  #     MYSQL_PASSWORD: secret
+  #     MYSQL_ROOT_PASSWORD: password
+  #     SERVICE_TAGS: dev
+  #     SERVICE_NAME: mysql
+  #   volumes:
+  #     - mdbdata:/var/lib/mysql/
+  #     - ./docker_conf/mysql/my.cnf:/etc/mysql/my.cnf
+  #    networks:
+  #      - oe-network
+
+  #Nginx Service
+  chatwin_webserver:
+    image: nginx:alpine
+    container_name: chatwin_webserver
+    restart: always
+    tty: true
+    ports:
+      - "8809:8809"
+    volumes:
+      - ./public:/var/www/public
+      - ./docker_conf/nginx/conf.d/:/etc/nginx/conf.d/
+#    networks:
+#      - oe-network
+
+##Docker Networks
+#networks:
+#  oe-network:
+#    driver: bridge
+
+#Volumes
+volumes:
+  mdbdata:
+    driver: local
